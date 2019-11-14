@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="description" content="OptimLib: a C++ numerical optimization library.">
+    <meta name="author" content="Keith O'Hara">
+
+    <meta name="keywords" content="Optimization, C++, C++11, Differential Evolution, Particle Swarm Optimization, Root Finding, OpenMP, Parallel Optimization, BFGS, L-BFGS, Keith O'Hara, Economics, Econometrics, Research, NYU, New York University" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="siteicon.ico">
+
+    <title>OptimLib: Nelder-Mead</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/modern-business.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Additional Settings -->
+    <link href="css/kthohr_settings.css" rel="stylesheet">
+
+    <!-- Syntax Highlighter -->
+    <script type="text/javascript" src="js/syntaxhighlighter.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/swift_theme.css">
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    
+    ga('create', 'UA-93902857-1', 'auto');
+    ga('send', 'pageview');
+
+    </script>
+
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script src="js/jquery.js"></script>
+    <script>
+        $(function(){
+            $("#mynavbar").load("navbar.html")
+            $("#optimhead").load("optimlib_header.html")
+            $("#myfooter").load("footer.html")
+        });
+    </script>
+
+</head>
+
+<style>
+pre {
+    display: inline-block;
+}
+</style>
+
+<body>
+
+    <!-- Navigation -->
+    <div id="mynavbar"></div>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading/Breadcrumbs -->
+        <div id="optimhead"></div>
+
+<br>
+
+<!--  -->
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a data-toggle="collapse" href="#collapse1"><h4><strong style="font-size: 120%;">OptimLib: Nelder-Mead</strong></h4></a>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <a href="#definition">Definition</a> <br>
+                    <a href="#details">Details</a> <br>
+                    <!-- <a href="#examples">Examples</a> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  -->
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+<p>Nelder-Mead is a derivative-free simplex method.</p>
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<h3 style="text-align: left;" id="definition"><strong style="font-size: 100%;">Definition and Syntax</strong></h3>
+
+<pre class="brush: cpp;">
+bool nm(arma::vec& init_out_vals, std::function&lt;double (const arma::vec& vals_inp, arma::vec* grad_out, void* opt_data)&gt; opt_objfn, void* opt_data);
+bool nm(arma::vec& init_out_vals, std::function&lt;double (const arma::vec& vals_inp, arma::vec* grad_out, void* opt_data)&gt; opt_objfn, void* opt_data, algo_settings_t& settings);
+</pre>
+<p><strong>Function arguments:</strong></p>
+<ul>
+    <li><code>init_out_vals</code> a column vector of initial values; will be replaced by the solution values.</li>
+    <li><code>opt_objfn</code> the function to be minimized, taking three arguments: 
+        <ul>
+            <li><code>vals_inp</code> a vector of inputs;</li>
+            <li><code>grad_out</code> an empty vector, as Nelder-Mead does not require the gradient to be known/exist; and</li>
+            <li><code>opt_data</code> additional parameters passed to the function.</li>
+        </ul>
+    <li><code>opt_data</code> additional parameters passed to the function.</li>
+    <li><code>settings</code> parameters controlling the optimization routine; see below.</li>
+</ul>
+
+<p><strong>Optimization control parameters:</strong></p>
+<ul>
+    <li><code>double err_tol</code> the value controlling how small $\| \nabla f \|$ should be before 'convergence' is declared.</li>
+    <li><code>int iter_max</code> the maximum number of iterations/updates before the algorithm exits.</li>
+    <li><code>bool vals_bound</code> whether the search space is bounded. If true, then</li>
+    <ul>
+        <li><code>arma::vec lower_bounds</code> this defines the lower bounds.</li>
+        <li><code>arma::vec upper_bounds</code> this defines the upper bounds.</li>
+    </ul>
+    <br>
+    <li><code>double nm_par_alpha</code> reflection parameter.</li>
+    <li><code>double nm_par_gamma</code> expansion parameter.</li>
+    <li><code>double nm_par_beta</code> contraction parameter.</li>
+    <li><code>double nm_par_delta</code> shrikage parameter.</li>
+</ul>
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<h3 style="text-align: left;" id="details"><strong style="font-size: 100%;">Details</strong></h3>
+
+<p>Let $x^{(i)}$ denote the simplex values at stage $i$ of the algorithm. The Nelder-Mead updating rule is as follows.</p>
+
+<ul>
+    <li><strong>Step 1.</strong> Sort the vertices in order of function values, from smallest to largest:</li>
+        $$f(x^{(i)}(1,:)) \leq f(x^{(i)}(2,:)) \leq \cdots \leq f(x^{(i)}(n+1,:))$$
+    <li><strong>Step 2.</strong> Calculate the centroid value up to the $n$th vertex:
+        $$\bar{x} = \frac{1}{n} \sum_{j=1}^n x^{(i)}(j,:)$$
+        and compute the reflection point:
+        $$x^r = \bar{x} + \alpha (\bar{x} - x^{(i)}(n+1,:))$$
+        where $\alpha$ is set by <code>nm_par_alpha</code>.
+        <br><br>
+
+        If $f(x^r) \geq f(x^{(i)}(1,:))$ and $f(x^r) < f(x^{(i)}(n,:))$, then
+        $$x^{(i+1)}(n+1,:) = x^r, \ \ \textbf{ and go to Step 1.}$$
+        Otherwise continue to Step 3.</li>
+    <li><strong>Step 3.</strong> If $f(x^r) \geq f(x^{(i)}(1,:))$ then go to Step 4, otherwise compute the expansion point:
+        $$x^e = \bar{x} + \gamma (x^r - \bar{x})$$
+        where
+        where $\gamma$ is set by <code>nm_par_gamma</code>.
+        <br><br>
+
+        Set
+        $$x^{(i+1)}(n+1,:) = \begin{cases} x^e & \text{ if } f(x^e) < f(x^r) \\ x^r & \text{ else } \end{cases}$$
+        <strong>and go to Step 1.</strong></li>
+    <li><strong>Steps 4 & 5.</strong> If $f(x^r) < f(x^{(i)}(n,:))$, then compute the outside or inside contraction:
+        $$x^{c} = \begin{cases} \bar{x} + \beta(x^r - \bar{x}) & \text{ if } f(x^r) < f(x^{(i)}(n+1,:)) \\ \bar{x} - \beta(x^r - \bar{x}) & \text{ else} \end{cases}$$
+        where $\beta$ is set by <code>nm_par_beta</code>.
+        <br><br>
+
+        If $f(x^c) < f(x^{(i)}(n+1,:))$, then
+        $$x^{(i+1)}(n+1,:) = x^c, \ \ \textbf{ and go to Step 1.}$$
+        Otherwise go to Step 6.</li>
+    <li><strong>Step 6.</strong> Shrink the simplex toward $x^{(i)}(1,:)$:
+        $$x^{(i+1)}(j,:) = x^{(i)}(1,:) + \delta (x^{(i)}(j,:) - x^{(i)}(1,:)), \ \ j = 2, \ldots, n+1$$
+        where $\delta$ is set by <code>nm_par_delta</code>. <strong>Go to Step 1.</strong></li>
+</ul>
+
+    </div>
+    </div>
+    </div>
+
+    <div id="myfooter"></div>
+
+    <!-- jQuery -->
+    <!--<script src="js/jquery.js"></script>-->
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

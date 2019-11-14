@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="description" content="OptimLib: a C++ numerical optimization library.">
+    <meta name="author" content="Keith O'Hara">
+
+    <meta name="keywords" content="Optimization, C++, C++11, Differential Evolution, Particle Swarm Optimization, Root Finding, OpenMP, Parallel Optimization, BFGS, L-BFGS, Keith O'Hara, Economics, Econometrics, Research, NYU, New York University" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="siteicon.ico">
+
+    <title>OptimLib</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/modern-business.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Additional Settings -->
+    <link href="css/kthohr_settings.css" rel="stylesheet">
+
+    <!-- Syntax Highlighter -->
+    <script type="text/javascript" src="js/syntaxhighlighter.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/swift_theme.css">
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    
+    ga('create', 'UA-93902857-1', 'auto');
+    ga('send', 'pageview');
+
+    </script>
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script src="js/jquery.js"></script>
+    <script>
+        $(function(){
+            $("#mynavbar").load("navbar.html")
+            $("#optimhead").load("optimlib_header.html")
+            $("#myfooter").load("footer.html")
+        });
+    </script>
+
+    <!-- randomize between images -->
+    <script>
+    var image_list = new Array()
+    var link_list = new Array()
+
+    image_list[0] = 'pics/table_fn_3d.png'
+    // image_list[1] = 'pics/sphere_fn.png'
+
+    link_list[0] = 'optimlib_docs_pso.html#examples'
+    link_list[1] = 'optimlib_docs_bfgs.html#examples'
+
+    var n_imag = image_list.length;
+
+    var which_image = Math.round(Math.random()*(n_imag-1));
+
+        function showImage(){
+            document.write('<a href="'+link_list[which_image]+'" target="_blank"><img src="'+image_list[which_image]+'" class="img-rounded pull-left" alt="Sphere" width="304" height="236"></a>');
+        }
+    </script>
+
+    <script>
+    var image_list2 = new Array()
+    var link_list2 = new Array()
+
+    image_list2[0] = 'pics/ackley_fn_3d.png'
+    // image_list2[1] = 'pics/rastrigin_fn.png'
+
+    link_list2[0] = 'optimlib_docs_de.html#examples'
+
+    var n_imag2 = image_list2.length;
+
+    var which_image2 = Math.round(Math.random()*(n_imag-1));
+
+        function showImage2(){
+            document.write('<a href="'+link_list2[0]+'" target="_blank"><img src="'+image_list2[which_image2]+'" class="img-rounded pull-right" alt="Sphere" width="304" height="236"></a>');
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <div id="mynavbar"></div>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading/Breadcrumbs -->
+        <div id="optimhead"></div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3 hidden-xs hidden-sm">
+         <!-- <a href="optimlib_docs_pso.html#examples" target="_blank"><img src="pics/table_fn_3d.png" class="img-rounded pull-left" alt="Sphere" width="304" height="236"></a>  -->
+        <script>showImage();</script>
+    </div>
+    <div class="col-md-4">
+        <br>
+        <br>
+        <br>
+        <h3 style="text-align: center;"><strong style="font-size: 130%;"><u>OptimLib</u></strong></h3>
+        <!-- <p style="text-align: center;"><a href="https://github.com/kthohr/optim" target="_blank"><i class="fa fa-github-square fa-2x" style="color:black"></i></a></p> -->
+        <p style="text-align: center;"><a class="github-button" href="https://github.com/kthohr/optim/subscription" data-icon="octicon-eye" data-show-count="true" aria-label="Watch kthohr/optim on GitHub">Watch</a>
+        <a class="github-button" href="https://github.com/kthohr/optim" data-icon="octicon-star" data-show-count="true" aria-label="Star kthohr/optim on GitHub">Star</a>
+        <a class="github-button" href="https://github.com/kthohr/optim/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork kthohr/optim on GitHub">Fork</a>
+        </p>
+        <p style="text-align: center;"><a href="https://travis-ci.org/kthohr/optim" target="_blank"><img src="https://travis-ci.org/kthohr/optim.svg?branch=master" alt="optim Build"></a>
+        <a href="https://codecov.io/github/kthohr/optim?branch=master" target="_blank"><img src="https://codecov.io/github/kthohr/optim/coverage.svg?branch=master" alt="Coverage Status"></a>
+        <a href="https://www.codacy.com/app/kthohr/optim?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=kthohr/optim&amp;utm_campaign=Badge_Grade" target="_blank"><img src="https://api.codacy.com/project/badge/Grade/9fea40836c4c4d5fa3a29b5675b58f6e" alt="Code Quality"></a>
+        </p>
+    </div>
+    <div class="col-md-3 hidden-xs hidden-sm">
+        <!-- <img class="img-responsive" src="pics/wsp_2.jpg" alt=""> -->
+        <!-- <img src="pics/rastrigin_fn.png" class="img-rounded pull-right" alt="Sphere" width="304" height="236"> -->
+        <!-- <a href="optimlib_docs_de.html#examples" target="_blank"><img src="pics/ackley_fn_3d.png" class="img-rounded pull-right" alt="Ackley" width="304" height="236"></a> -->
+        <script>showImage2();</script>
+    </div>
+</div>
+
+<br>
+
+<!--  -->
+
+<div class="row">
+
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+<p>OptimLib is a lightweight C++ library of numerical optimization methods for nonlinear functions.</p>
+
+<hr>
+
+<p><strong>Features</strong></p>
+<ul>
+    <li>A C++11 library of local and global optimization algorithms, as well as root finding techniques.</li>
+    <li>Derivative-free optimization using advanced, parallelized metaheuristics.</li>
+    <li>Constrained optimization routines can handle simple box constraints, as well as systems of nonlinear constraints.</li>
+    <li>Built on the <a href="http://arma.sourceforge.net" target="_blank">Armadillo C++ linear algebra library</a> for fast and efficient matrix-based computation.</li>
+    <li><a href="https://en.wikipedia.org/wiki/OpenMP" target="_blank">OpenMP</a>-accelerated algorithms for parallel computation.</li>
+    <li>Straightforward linking with parallelized BLAS libraries, such as <a href="https://github.com/xianyi/OpenBLAS" target="_blank">OpenBLAS</a>.</li>
+    <li>Available as a header-only library, or in shared library format.</li>
+    <li>Released under a permissive, non-GPL license.</li>
+    <li>The source code is available on <a href="https://github.com/kthohr/optim" target="_blank">GitHub</a>.</li>
+</ul>
+
+<p><strong>Author</strong>: Keith O'Hara</p>
+
+<p><a href="https://raw.githubusercontent.com/kthohr/optim/master/LICENSE" target="_blank"><img src="https://img.shields.io/badge/Licence-Apache%202.0-blue.svg" alt="License"></a></p>
+
+<hr>
+
+<strong>Contents</strong>
+<ul>
+    <li><a href="#algorithms-general-syntax">Algorithms and General Syntax</a></li>
+    <li><a href="#installation-method-1-shared-library">Installation Method 1: Shared Library</a></li>
+    <li><a href="#installation-method-2-header-only-library">Installation Method 2: Header-only Library</a></li>
+    <li><a href="#r-compatibility">R Compatibility</a></li>
+    <li><a href="#examples">Examples</a></li>
+</ul>
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<h3 style="text-align: left;" id="algorithms-general-syntax"><strong style="font-size: 95%;">Algorithms and General Syntax</strong></h3>
+
+<p>Available Algorithms:</p>
+<ul>
+    <li><a href="optimlib_docs_broyden.html" target="_blank">Broyden's Method</a> (for root finding)</li>
+    <li>Newton's method, <a href="optimlib_docs_bfgs.html" target="_blank">BFGS</a>, and <a href="optimlib_docs_lbfgs.html" target="_blank">L-BFGS</a></li>
+    <li><a href="optimlib_docs_gd.html" target="_blank">Gradient descent</a>: basic, momentum, Adam, AdaMax, Nadam, NadaMax, and more</li>
+    <li><a href="optimlib_docs_cg.html" target="_blank">Nonlinear Conjugate Gradient</a></li>
+    <li><a href="optimlib_docs_nm.html" target="_blank">Nelder-Mead</a></li>
+    <li><a href="optimlib_docs_de.html" target="_blank">Differential Evolution</a> (DE)</li>
+    <li><a href="optimlib_docs_pso.html" target="_blank">Particle Swarm Optimization</a> (PSO)</li>
+</ul>
+
+<hr>
+
+<p>OptimLib functions have the following generic form:</p>
+<pre class="brush: cpp;">
+algorithm_name(&lt;initial and final values&gt;, &lt;objective function&gt;, &lt;objective function data&gt;);</pre>
+<p>The inputs, in order, are:</p>
+<ul>
+    <li>A writable vector of initial values to define the starting point of the algorithm. In the event of successful completion, the initial values will be overwritten by the solution vector.</li>
+    <li>The 'objective function' is the user-defined function to be minimized (or zeroed-out in the case of root finding methods).</li>
+    <li>The final input is optional: it is any object that contains additional parameters necessary to evaluate the objective function.</li>
+</ul>
+
+<p>For example, the BFGS algorithm is called using</p>
+<pre class="brush: cpp;">
+bool bfgs(arma::vec& init_out_vals, std::function&lt;double (const arma::vec& vals_inp, arma::vec* grad_out, void* opt_data)&gt; opt_objfn, void* opt_data);</pre>
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<h3 style="text-align: left;" id="installation-method-1-shared-library"><strong style="font-size: 95%;">Installation Method 1: Shared Library</strong></h3>
+
+<p>The library can be installed on Unix-alike systems via the standard <code>./configure && make</code> method:</p>
+<pre class="brush: bash;">
+# clone optim
+git clone -b master --single-branch https://github.com/kthohr/optim ./optim
+# build and install
+cd ./optim
+./configure -i "/usr/local" -p
+make
+make install</pre>
+<p>The last line will install OptimLib into <samp>/usr/local</samp></p>
+
+<p>Configuration options: (see <code>./configure -h</code>)</p>
+<ul>
+    <strong>Primary</strong>
+    <li><code>-h</code> print help</li>
+    <li><code>-i</code> install path; default: the build directory
+    <br> &nbsp &nbsp &nbsp &nbsp example: <code>-i "/usr/local"</code></li>
+    <li><code>-m</code> specify the BLAS and Lapack libraries to link against;
+    <br> &nbsp &nbsp &nbsp &nbsp examples: <code>-m "-lopenblas"</code> or <code>-m "-framework Accelerate"</code></li>
+    <li><code>-o</code> compiler optimization options;
+    <br> &nbsp &nbsp &nbsp &nbsp default: <code>-O3 -march=native -ffp-contract=fast -flto -DARMA_NO_DEBUG</code></li>
+    <li><code>-p</code> enable OpenMP parallelization features (<strong>recommended</strong>)</li>
+    <strong>Secondary</strong>
+    <li><code>-c</code> a coverage build (used with Codecov)</li>
+    <li><code>-d</code> a 'development' build</li>
+    <li><code>-g</code> a debugging build (optimization flags set to <code>-O0 -g</code>)</li>
+    <!-- <li><code>-R</code> RcppArmadillo compatible build by setting the appropriate R library directories (R, Rcpp, and RcppArmadillo) -->
+    <!-- <br> &nbsp &nbsp &nbsp &nbsp example: <code>-R "/usr/local/R/lib/R/include /usr/local/R/lib/R/library/Rcpp/include /usr/local/R/lib/R/library/RcppArmadillo/include"</code></li> -->
+    <strong>Special</strong>
+    <li><code>--header-only-version</code> generate a header-only version of OptimLib (see <a href="#installation-method-2-header-only-library">below</a>)</li>
+</ul>
+
+<hr>
+
+<h4 style="text-align: left;"><strong style="font-size: 95%;">Armadillo</strong></h3>
+
+<p>OptimLib is built on the Armadillo C++ linear algebra library. The <code>configure</code> script will search for 
+Armadillo files in the standard locations: <code>/usr/include</code>, <code>/usr/local/include</code>, 
+<code>/opt/include</code>, <code>/opt/local/include</code>. If the Armadillo header files are installed elsewhere, 
+set the following environment variable <strong>before</strong> running <code>configure</code>:</p>
+<pre class="brush: bash;">
+export ARMA_INCLUDE_PATH=/path/to/armadillo</pre>
+
+<p>Otherwise the build script will proceed to download any required files from the Armadillo GitLab repository.</p>
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<h3 style="text-align: left;" id="installation-method-2-header-only-library"><strong style="font-size: 95%;">Installation Method 2: Header-only Library</strong></h3>
+
+<p>The library is also available in header-only format (i.e., without compiling a shared library). Simply run <code>configure</code> with the <code>--header-only-version</code> option:</p>
+
+<pre class="brush: bash;">
+./configure --header-only-version</pre>
+
+<p>This will create a new directory <samp>header_only_version</samp> that contains a header-only copy of OptimLib.</p>
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<h3 style="text-align: left;" id="r-compatibility"><strong style="font-size: 95%;">R Compatibility</strong></h3>
+
+<p>To use OptimLib with an R package, first generate a header-only version of the library (see <a href="#installation-method-2-header-only-library">above</a>). Then add the compiler definition <code>USE_RCPP_ARMADILLO</code> before including the OptimLib files:</p>
+
+<pre class="brush: cpp;">
+#define USE_RCPP_ARMADILLO
+#include "optim.hpp"</pre>
+
+<p>Or you can set this preprocessor directive during compilation:</p>
+<pre class="brush: bash;">
+g++ ... -DUSE_RCPP_ARMADILLO ...</pre>
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<h3 style="text-align: left;" id="examples"><strong style="font-size: 95%;">Examples</strong></h3>
+
+Examples can be found on the reference page for each algorithm. 
+
+<hr>
+
+    </div>
+    </div>
+    </div>
+
+    <div id="myfooter"></div>
+
+    <!-- jQuery -->
+    <!--<script src="js/jquery.js"></script>-->
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

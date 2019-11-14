@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="description" content="Bayesian Macroeconometrics in R (BMR)">
+    <meta name="author" content="Keith O'Hara">
+
+    <meta name="keywords" content="Bayesian, Macroeconometrics, BMR, Economics, PhD student, NYU, New York University, Econometrics, R, C++, Cpp, Research" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="siteicon.ico">
+
+    <title>BMR: bvars</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/modern-business.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Additional Settings -->
+    <link href="css/kthohr_settings.css" rel="stylesheet">
+
+    <!-- Syntax Highlighter -->
+    <script type="text/javascript" src="js/syntaxhighlighter.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/swift_theme.css">
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    
+    ga('create', 'UA-93902857-1', 'auto');
+    ga('send', 'pageview');
+
+    </script>
+
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script src="js/jquery.js"></script>
+    <script>
+        $(function(){
+            $("#mynavbar").load("navbar.html")
+            $("#bmrhead").load("bmr_header.html")
+            $("#myfooter").load("footer.html")
+        });
+    </script>
+
+</head>
+
+<style>
+pre {
+    display: inline-block;
+}
+</style>
+
+<body>
+
+    <!-- Navigation -->
+    <div id="mynavbar"></div>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading/Breadcrumbs -->
+        <div id="bmrhead"></div>
+
+<br>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a data-toggle="collapse" href="#collapse1"><h4><strong style="font-size: 120%;">BMR: BVAR with Steady-State Prior</strong></h4></a>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <a href="#definition">Fields and Methods</a> <br>
+                    <a href="#details">Details</a> <br>
+                    <a href="#examples">Examples</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  -->
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+<p>BVAR with steady-state prior.</p>
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<h3 style="text-align: left;" id="definition"><strong style="font-size: 100%;">Fields and Methods</strong></h3>
+
+<br>
+
+<p><strong>Instantiation:</strong></p>
+<pre class="brush: R;">
+# create a new object
+bvar_obj <- new(bvars)
+</pre>
+
+<p><strong>Fields:</strong></p>
+<ul>
+    <li><code>cons_term</code> a logical value (TRUE/FALSE) indicating the presence of a constant term (intercept) in the model.</li>
+    <li><code>p</code> lag order (integer).</li>
+    <li><code>c_int</code> integer version of <code>cons_term</code>.</li>
+
+    <br>
+
+    <li><code>n</code> sample length.</li>
+    <li><code>M</code> number of variables.</li>
+    <li><code>n_ext_vars</code> number of exogenous variables.</li>
+    <li><code>K</code> number of right-hand-side terms in each equation.</li>
+
+    <br>
+
+    <li><code>Y</code> a $(n-p) \times M$ data matrix.</li>
+    <li><code>X</code> a $(n-p) \times K$ data matrix.</li>
+
+    <br>
+
+    <li><code>psi_hat</code> OLS estimate of $\psi = \text{vec}(\Psi)$.</li>
+    <li><code>alpha_hat</code> OLS estimate of $\alpha = \text{vec}(\beta)$.</li>
+    <li><code>Sigma_hat</code> OLS estimate of $\Sigma$.</li>
+
+    <br>
+
+    <li><code>psi_pr_mean</code> prior mean of $\psi = \text{vec}(\Psi)$.</li>
+    <li><code>psi_pr_var</code> prior covariance matrix of $\psi = \text{vec}(\Psi)$.</li>
+
+    <li><code>alpha_pr_mean</code> prior mean of $\alpha = \text{vec}(\beta)$.</li>
+    <li><code>alpha_pr_var</code> prior covariance matrix of $\alpha = \text{vec}(\beta)$.</li>
+
+    <li><code>Sigma_pr_scale</code> prior scale matrix of $\Sigma$.</li>
+    <li><code>Sigma_pr_dof</code> prior degrees of freedom of $\Sigma$.</li>
+
+    <br>
+
+    <li><code>psi_pt_mean</code> posterior mean of $\psi = \text{vec}(\Psi)$.</li>
+    <li><code>psi_pt_var</code> posterior covariance matrix of $\psi = \text{vec}(\Psi)$.</li>
+
+    <li><code>alpha_pt_mean</code> posterior mean of $\alpha = \text{vec}(\beta)$.</li>
+    <li><code>alpha_pt_var</code> posterior covariance matrix of $\alpha = \text{vec}(\beta)$.</li>
+
+    <li><code>Sigma_pt_mean</code> posterior mean of $\Sigma$.</li>
+    <li><code>Sigma_pt_dof</code> posterior degrees of freedom of $\Sigma$.</li>
+
+    <br>
+
+    <li><code>Psi_draws</code> an array of posterior draws for $\Psi$.</li>
+    <li><code>beta_draws</code> an array of posterior draws for $\beta$.</li>
+    <li><code>Sigma_draws</code> an array of posterior draws for $\Sigma$.</li>
+</ul>
+
+<hr>
+
+<p><strong>Build:</strong> two methods,</p>
+<pre class="brush: R;">
+bvar_obj$build(data_endog,cons_term,p)
+bvar_obj$build(data_endog,data_exog,cons_term,p)
+</pre>
+
+<ul>
+    <li><code>data_endog</code> a $n \times m$ matrix of endogenous varibles.</li>
+    <li><code>data_exog</code> a $n \times q$ matrix of exogenous varibles.</li>
+    <li><code>cons_term</code> a logical value (TRUE/FALSE) indicating the presence of a constant term (intercept) in the model.</li>
+    <li><code>p</code> lag order (integer).</li>
+</ul>
+
+<p><strong>Prior:</strong></p>
+<pre class="brush: R;">
+bvar_obj$prior(coef_prior,HP_1,HP_2,Psi_prior,Xi_psi,gamma,full_cov_prior)
+</pre>
+
+<ul>
+    <li><code>coef_prior</code> a $m \times 1$ vector containing the prior mean for each first own-lag coefficient.</li>
+    <li><code>HP_1,HP_2</code> hyperparameters.</li>
+    <li><code>Psi_prior</code> prior mean of $\Psi$.</li>
+    <li><code>Xi_psi</code> scaling value for the prior covariance matrix of $\psi = \text{vec}(\Psi)$.</li>
+    <li><code>gamma</code> prior degrees of freedom for $\Sigma$.</li>
+    <li><code>full_cov_prior</code> a logical value (TRUE/FALSE) to switch between using the full MLE covariance matrix as the diffuse prior for Sigma (TRUE) or the classical Minnesota prior (FALSE).</li>
+</ul>
+
+<p><strong>Gibbs sampling:</strong></p>
+<pre class="brush: R;">
+bvar_obj$gibbs(n_draws,n_burnin)
+</pre>
+
+<ul>
+    <li><code>n_draws</code> number of posterior draws.</li>
+    <li><code>n_burnin</code> number of burnin draws.</li>
+</ul>
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<h3 style="text-align: left;" id="details"><strong style="font-size: 100%;">Details</strong></h3>
+
+<br>
+
+The model:
+$$
+    ( Y_t - d_t \Psi^\top) \beta(L) = \varepsilon_t,
+$$
+
+<p>The prior on $\beta$ is constructed as
+\begin{equation*}
+\Xi_{\beta_{i,j}} (\ell) =
+	\begin{cases}
+			&H_1 / \ell^2 \\
+			&H_2 \cdot \sigma_{i}^2 / \left( \ell^2 \cdot \sigma_{j}^2 \right)
+	\end{cases}
+\end{equation*}
+for own lags and cross-variable lags, respectively.</p>
+
+<p>Let
+\begin{align*}
+    \xi &= Y - X \beta \\
+    Y_d &= Y - d \Psi^\top \\
+    X_d &= X - d_X ( \mathbb{I}_p \otimes \Psi^\top ) \\
+	\varepsilon &= Y_d - X_d \beta
+\end{align*}
+
+The conditional posterior kernels are given by:
+\begin{align}
+        p(\psi | \beta,\Sigma,X,Y) &= \mathcal{N} \left( \widetilde{\psi}, \widetilde{\Sigma}_{\psi}  \right) \\
+		p(\alpha | \Psi,\Sigma,X,Y) &= \mathcal{N} \left( \widetilde{\alpha}, \widetilde{\Sigma}_{\alpha}  \right) \\
+		p(\Sigma | \Psi,\beta,X,Y) &= \mathcal{IW} \left( \Xi_{\Sigma} + \varepsilon^{\top} \varepsilon, n - p + \gamma \right)
+\end{align}
+where
+\begin{align*}
+    \widetilde{\Sigma}_{\psi}^{-1} &= \Xi_{\psi}^{-1} + U^\top(D^{\top} D \otimes \Sigma^{-1}) U \\
+	\widetilde{\psi} &= \widetilde{\Sigma}_{\psi} \left( \Xi_{\alpha}^{-1} \bar{\alpha} + \text{vec}(\Sigma^{-1} \xi^{\top} D) \right) \\
+	\widetilde{\Sigma}_{\alpha}^{-1} &= \Xi_{\alpha}^{-1} + (\Sigma^{-1} \otimes X_d^{\top} X_d) \\
+	\widetilde{\alpha} &= \widetilde{\Sigma}_{\alpha} \left( \Xi_{\alpha}^{-1} \bar{\alpha} + \text{vec}(X_d^{\top} Y_d \Sigma^{-1}) \right)
+\end{align*}
+and $U^\top = (\mathbb{I}_{Mp}, \mathbb{I}_{q} \otimes \beta_1^\top, \ldots, \mathbb{I}_{q} \otimes \beta_p^\top)$.</p>
+
+</p>
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<h3 style="text-align: left;" id="examples"><strong style="font-size: 100%;">Example</strong></h3>
+
+<br>
+
+<pre class="brush: ruby;">
+rm(list=ls())
+library(BMR)
+
+#
+
+data(BMRVARData)
+bvar_data <- data.matrix(USMacroData[,2:4])
+
+#
+
+coef_prior <- c(0.9,0.9,0.9)
+psi_prior <- matrix(c(3,6,5),nrow=1)
+
+HP1 <- 0.5
+HP2 <- 0.5
+XiPsi <- 1
+gamma <- 4
+
+bvar_obj <- new(bvars)
+
+#
+
+bvar_obj$build(bvar_data,TRUE,1)
+bvar_obj$prior(coef_prior,HP1,HP2,psi_prior,XiPsi,gamma,FALSE)
+bvar_obj$gibbs(10000,5000)
+
+IRF(bvar_obj,20,var_names=colnames(bvar_data),save=FALSE)
+plot(bvar_obj,var_names=colnames(bvar_data),save=FALSE)
+forecast(bvar_obj,shocks=TRUE,var_names=colnames(bvar_data),back_data=10,save=FALSE)
+</pre>
+
+<hr>
+
+    </div>
+    </div>
+    </div>
+
+    <div id="myfooter"></div>
+
+    <!-- jQuery -->
+    <!--<script src="js/jquery.js"></script>-->
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

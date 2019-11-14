@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="description" content="OptimLib: a C++ numerical optimization library.">
+    <meta name="author" content="Keith O'Hara">
+
+    <meta name="keywords" content="Optimization, C++, C++11, Differential Evolution, Particle Swarm Optimization, Root Finding, OpenMP, Parallel Optimization, BFGS, L-BFGS, Keith O'Hara, Economics, Econometrics, Research, NYU, New York University" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="siteicon.ico">
+
+    <title>OptimLib: SUMT</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/modern-business.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Additional Settings -->
+    <link href="css/kthohr_settings.css" rel="stylesheet">
+
+    <!-- Syntax Highlighter -->
+    <script type="text/javascript" src="js/syntaxhighlighter.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/swift_theme.css">
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    
+    ga('create', 'UA-93902857-1', 'auto');
+    ga('send', 'pageview');
+
+    </script>
+
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script src="js/jquery.js"></script>
+    <script>
+        $(function(){
+            $("#mynavbar").load("navbar.html")
+            $("#optimhead").load("optimlib_header.html")
+            $("#myfooter").load("footer.html")
+        });
+    </script>
+
+</head>
+
+<style>
+pre {
+    display: inline-block;
+}
+</style>
+
+<body>
+
+    <!-- Navigation -->
+    <div id="mynavbar"></div>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading/Breadcrumbs -->
+        <div id="optimhead"></div>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+<h3 style="text-align: left;"><strong style="font-size: 120%;">OptimLib: Sequential Unconstrained Minimization Technique (SUMT)</strong></h3>
+
+<hr>
+<!--<p> &nbsp </p>-->
+
+<p><strong>Function definition:</strong></p>
+<pre class="brush: cpp;">
+bool sumt(arma::vec& init_out_vals, std::function&lt;double (const arma::vec& vals_inp, arma::vec* grad_out, void* opt_data)&gt; opt_objfn, void* opt_data,
+          std::function&lt;arma::vec (const arma::vec& vals_inp, arma::mat* jacob_out, void* constr_data)&gt; constr_fn, void* constr_data);
+
+bool sumt(arma::vec& init_out_vals, std::function&lt;double (const arma::vec& vals_inp, arma::vec* grad_out, void* opt_data)&gt; opt_objfn, void* opt_data,
+          std::function&lt;arma::vec (const arma::vec& vals_inp, arma::mat* jacob_out, void* constr_data)&gt; constr_fn, void* constr_data, algo_settings_t& settings);
+</pre>
+
+<p><strong>Function arguments:</strong></p>
+<ul>
+    <li><code>init_out_vals</code> a column vector of initial values; will contain the final values.</li>
+    <li><code>opt_objfn</code> the function to be minimized, taking three arguments: 
+        <ul>
+            <li><code>vals_inp</code> a vector of inputs;</li>
+            <li><code>grad_out</code> a vector to store the gradient; and</li>
+            <li><code>opt_data</code> additional parameters passed to the function.</li>
+        </ul>
+    <li><code>opt_data</code> additional parameters passed to the function.</li>
+    <li><code>constr_fn</code> the constraint functions in vector form, taking three arguments: 
+        <ul>
+            <li><code>vals_inp</code> a vector of inputs;</li>
+            <li><code>jacob_out</code> a matrix to store the jacobian; and</li>
+            <li><code>constr_data</code> additional parameters passed to the constraints.</li>
+        </ul>
+    <li><code>constr_data</code> additional parameters passed to the constraints.</li>
+    <li><code>settings</code> parameters controlling the optimization routine; see below.</li>
+</ul>
+
+<p><strong>Optimization control parameters:</strong></p>
+<ul>
+    <li><code>double err_tol</code> the value controlling how small $\| f \|$ should be before 'convergence' is declared.</li>
+    <li><code>int iter_max</code> the maximum number of iterations/updates before the algorithm exits.</li>
+    <li><code>bool vals_bound</code> whether the search space is bounded. If true, then</li>
+    <ul>
+        <li><code>arma::vec lower_bounds</code> this defines the lower bounds.</li>
+        <li><code>arma::vec upper_bounds</code> this defines the upper bounds.</li>
+    </ul>
+</ul>
+
+<hr>
+
+<h3 style="text-align: left;"><strong style="font-size: 100%;">Details:</strong></h3>
+
+<p>The SUMT solves the augmented problem</p>
+$$\min_x \left\{ f(x) + c \times \dfrac{1}{2} \sum_{k=1}^K \left( \max(0, g_k(x)) \right)^2 \right\} =: \min_x h(x)$$
+<p>where $g_k \leq 0$.</p>
+
+<p>The algorithm stops when $\| \nabla h \|$ is less than err_tol, or the total number of 'generations' exceeds a desired (or default) value.</p>
+
+
+    </div>
+    </div>
+    </div>
+
+    <div id="myfooter"></div>
+
+    <!-- jQuery -->
+    <!--<script src="js/jquery.js"></script>-->
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

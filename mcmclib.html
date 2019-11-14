@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="description" content="OptimLib: a C++ numerical optimization library.">
+    <meta name="author" content="Keith O'Hara">
+
+    <meta name="keywords" content="mcmc, MCMC, Metropolis Hastings, RWMH, Differential Evolution, Metropolis-adjusted Langevin algorithm, MALA, Hamiltonian Monte Carlo, HMC, C++, C++11, Cpp, NYU, New York University, Econometrics, Research" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="siteicon.ico">
+
+    <title>MCMC</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/modern-business.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Additional Settings -->
+    <link href="css/kthohr_settings.css" rel="stylesheet">
+
+    <!-- Syntax Highlighter -->
+    <script type="text/javascript" src="js/syntaxhighlighter.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/swift_theme.css">
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    
+    ga('create', 'UA-93902857-1', 'auto');
+    ga('send', 'pageview');
+
+    </script>
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script src="js/jquery.js"></script>
+    <script>
+        $(function(){
+            $("#mynavbar").load("navbar.html")
+            $("#mcmchead").load("mcmclib_header.html")
+            $("#myfooter").load("footer.html")
+        });
+    </script>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <div id="mynavbar"></div>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading/Breadcrumbs -->
+        <div id="mcmchead"></div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3 hidden-xs hidden-sm">
+         <!-- <a href="optimlib_docs_pso.html#examples" target="_blank"><img src="pics/table_fn_3d.png" class="img-rounded pull-left" alt="Sphere" width="304" height="236"></a>  -->
+        <script>showImage();</script>
+    </div>
+    <div class="col-md-4">
+        <br>
+        <br>
+        <h3 style="text-align: center;"><strong style="font-size: 130%;"><u>MCMCLib</u></strong></h3>
+        <!-- <p style="text-align: center;"><a href="https://github.com/kthohr/mcmc" target="_blank"><i class="fa fa-github-square fa-2x" style="color:black"></i></a></p> -->
+        <p style="text-align: center;"><a href="https://travis-ci.org/kthohr/mcmc" target="_blank"><img src="https://travis-ci.org/kthohr/mcmc.svg?branch=master" alt="optim Build"></a>
+        <a href="https://codecov.io/github/kthohr/mcmc?branch=master" target="_blank"><img src="https://codecov.io/github/kthohr/mcmc/coverage.svg?branch=master" alt="Coverage Status"></a></p>
+        <p style="text-align: center;"><a class="github-button" href="https://github.com/kthohr/mcmc/subscription" data-icon="octicon-eye" data-show-count="true" aria-label="Watch kthohr/mcmc on GitHub">Watch</a>
+        <a class="github-button" href="https://github.com/kthohr/mcmc" data-icon="octicon-star" data-show-count="true" aria-label="Star kthohr/mcmc on GitHub">Star</a>
+        <a class="github-button" href="https://github.com/kthohr/mcmc/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork kthohr/mcmc on GitHub">Fork</a></p>
+    </div>
+    <div class="col-md-3 hidden-xs hidden-sm">
+        <!-- <img class="img-responsive" src="pics/wsp_2.jpg" alt=""> -->
+        <!-- <img src="pics/rastrigin_fn.png" class="img-rounded pull-right" alt="Sphere" width="304" height="236"> -->
+        <!-- <a href="optimlib_docs_de.html#examples" target="_blank"><img src="pics/ackley_fn_3d.png" class="img-rounded pull-right" alt="Ackley" width="304" height="236"></a> -->
+    </div>
+</div>
+
+<br>
+
+<!--  -->
+
+<div class="row">
+
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+<p>MCMCLib is a C++ library of Markov Chain Monte Carlo methods.</p>
+
+<hr>
+
+<p><strong>Features</strong></p>
+<ul>
+    <li>C++11 implementations of several well-known MCMC methods, including:
+        <ul>
+            <li>Random Walk Metropolis-Hastings (RWMH);</li>
+            <li>Metropolis-adjusted Langevin algorithm (MALA);</li>
+            <li>Hamiltonian Monte Carlo (HMC); and</li>
+            <li>Riemannian Manifold HMC.</li>
+        </ul>
+    </li>
+    <li>Samplers designed for multi-modal distributions:</li>
+        <ul>
+            <li>Equi-Energy sampling; and</li>
+            <li>Differential Evolution</li>
+        </ul>
+    <li>Built on the <a href="http://arma.sourceforge.net" target="_blank">Armadillo C++ linear algebra library</a> for fast and efficient matrix-based computation.</li>
+    <li><a href="https://en.wikipedia.org/wiki/OpenMP" target="_blank">OpenMP</a>-accelerated samplers for parallel computation.</li>
+    <li>Straightforward linking with parallelized BLAS libraries, such as <a href="https://github.com/xianyi/OpenBLAS" target="_blank">OpenBLAS</a>.</li>
+    <li>Released under a permissive, non-GPL license.</li>
+</ul>
+
+<p><strong>Author</strong>: Keith O'Hara</p>
+
+<p><a href="https://raw.githubusercontent.com/kthohr/mcmc/master/LICENSE" target="_blank"><img src="https://img.shields.io/badge/Licence-Apache%202.0-blue.svg" alt="License"></a></p>
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<h3 style="text-align: left;"><strong style="font-size: 95%;">Download and Installation</strong></h3>
+<ul>
+    <li>The source code is available on <a href="https://github.com/kthohr/mcmc" target="_blank">GitHub</a>.</li>
+</ul>
+
+<p>The library can be installed on Unix-alike systems via the standard <code>./configure && make</code> method:</p>
+<pre class="brush: bash;">
+# clone MCMCLib into the current directory
+git clone https://github.com/kthohr/mcmc ./mcmc
+# build and install
+cd ./mcmc
+./configure -i "/usr/local" -p
+make
+make install</pre>
+<p>The last line will install MCMCLib to <samp>/usr/local</samp></p>
+
+<p>Configuration options: (see <code>./configure -h</code>)</p>
+<ul>
+    <strong>Primary</strong>
+    <li><code>-h</code> print help</li>
+    <li><code>-i</code> install path; default: the build directory
+    <br> &nbsp &nbsp &nbsp &nbsp example: <code>-i "/usr/local"</code></li>
+    <li><code>-m</code> specify the BLAS and Lapack libraries to link against;
+    <br> &nbsp &nbsp &nbsp &nbsp examples: <code>-m "-lopenblas"</code> or <code>-m "-framework Accelerate"</code></li>
+    <li><code>-o</code> compiler optimization options;
+    <br> &nbsp &nbsp &nbsp &nbsp default: <code>-O3 -march=native -ffp-contract=fast -flto -DARMA_NO_DEBUG</code>
+    <li><code>-p</code> enable OpenMP parallelization features (<strong>recommended</strong>)</li>
+    
+    <strong>Secondary</strong>
+    <li><code>-c</code> a coverage build (used with Codecov)</li>
+    <li><code>-d</code> a 'development' build</li>
+    <li><code>-g</code> a debugging build (optimization flags set to <code>-O0 -g</code>)</li>
+</ul>
+
+<hr>
+
+<h4 style="text-align: left;"><strong style="font-size: 95%;">Armadillo</strong></h3>
+
+MCMCLib is built on the Armadillo C++ linear algebra library. The <code>configure</code> script will search for Armadillo files in the standard locations: <code>/usr/include</code>, <code>/usr/local/include</code>, <code>/opt/include</code>, <code>/opt/local/include</code>. If the Armadillo header files are installed elsewhere, set the following environment variable <strong>before</strong> running <code>configure</code>:
+<pre class="brush: bash;">
+export ARMA_INCLUDE_PATH=/path/to/armadillo</pre>
+
+Otherwise the build script will download the required files from the Armadillo GitLab repository.
+
+<hr>
+
+    </div>
+    </div>
+    </div>
+
+    <div id="myfooter"></div>
+
+    <!-- jQuery -->
+    <!--<script src="js/jquery.js"></script>-->
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

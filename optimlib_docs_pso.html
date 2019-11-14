@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="description" content="OptimLib: a C++ numerical optimization library.">
+    <meta name="author" content="Keith O'Hara">
+
+    <meta name="keywords" content="Optimization, C++, Differential Evolution, Particle Swarm Optimization, OpenMP, Parallel Optimization, BFGS, L-BFGS, Keith O'Hara, Economics, Econometrics, Research, NYU, New York University" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="siteicon.ico">
+
+    <title>OptimLib: Particle Swarm Optimization</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/modern-business.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Additional Settings -->
+    <link href="css/kthohr_settings.css" rel="stylesheet">
+
+    <!-- Syntax Highlighter -->
+    <script type="text/javascript" src="js/syntaxhighlighter.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/swift_theme.css">
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    
+    ga('create', 'UA-93902857-1', 'auto');
+    ga('send', 'pageview');
+
+    </script>
+
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script src="js/jquery.js"></script>
+    <script>
+        $(function(){
+            $("#mynavbar").load("navbar.html")
+            $("#optimhead").load("optimlib_header.html")
+            $("#myfooter").load("footer.html")
+        });
+    </script>
+
+</head>
+
+<style>
+pre {
+    display: inline-block;
+}
+</style>
+
+<body>
+
+    <!-- Navigation -->
+    <div id="mynavbar"></div>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading/Breadcrumbs -->
+        <div id="optimhead"></div>
+
+<br>
+
+<!--  -->
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a data-toggle="collapse" href="#collapse1"><h4><strong style="font-size: 120%;">OptimLib: Particle Swarm Optimization</strong></h4></a>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <a href="#definition">Definition</a> <br>
+                    <a href="#details">Details</a> <br>
+                    <a href="#examples">Examples</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  -->
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+<p>Particle Swarm Optimization (PSO) is a stochastic swarm intelligence algorithm for global optimization of potentially ill-behaved nonlinear functions.</p>
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<h3 style="text-align: left;" id="definition"><strong style="font-size: 100%;">Definition and Syntax</strong></h3>
+
+<pre class="brush: cpp;">
+bool pso(arma::vec& init_out_vals, std::function&lt;double (const arma::vec& vals_inp, arma::vec* grad_out, void* opt_data)&gt; opt_objfn, void* opt_data);
+bool pso(arma::vec& init_out_vals, std::function&lt;double (const arma::vec& vals_inp, arma::vec* grad_out, void* opt_data)&gt; opt_objfn, void* opt_data, algo_settings_t& settings);
+</pre>
+<p><strong>Function arguments:</strong></p>
+<ul>
+    <li><code>init_out_vals</code> a column vector of initial values; will be replaced by the solution values.</li>
+    <li><code>opt_objfn</code> the function to be minimized, taking three arguments: 
+        <ul>
+            <li><code>vals_inp</code> a vector of inputs;</li>
+            <li><code>grad_out</code> an empty vector, as PSO does not require the gradient to be known/exist; and</li>
+            <li><code>opt_data</code> additional parameters passed to the function.</li>
+        </ul>
+    <li><code>opt_data</code> additional parameters passed to the function.</li>
+    <li><code>settings</code> parameters controlling the optimization routine; see below.</li>
+</ul>
+
+<p><strong>Optimization control parameters:</strong></p>
+<ul>
+    <li><code>bool vals_bound</code> whether the search space is bounded. If true, then</li>
+    <ul>
+        <li><code>arma::vec lower_bounds</code> this defines the lower bounds.</li>
+        <li><code>arma::vec upper_bounds</code> this defines the upper bounds.</li>
+    </ul>
+    <br>
+    <li><code>int pso_n_pop</code> population size of each generation.</li>
+    <li><code>int pso_n_gen</code> number of vectors to generate.</li>
+    <li><code>int pso_check_freq</code> number of generations between convergence checks.</li>
+    <br>
+    <li><code>int pso_inertia_method</code> method of inertia decay:</li>
+    <ul>
+        <li><code>pso_inertia_method = 1</code> linear decay between <code>pso_par_w_max</code> and <code>pso_par_w_min</code>.</li>
+        <li><code>pso_inertia_method = 2</code> dampening using <code>pso_par_w_damp</code> parameter.</li>
+    </ul>
+    <br>
+    <li><code>int pso_velocity_method</code> method of updating the velocity weights:</li>
+    <ul>
+        <li><code>pso_velocity_method = 1</code> fixed weights <code>pso_par_c_cog</code> and <code>pso_par_c_soc</code>.</li>
+        <li><code>pso_velocity_method = 2</code> linear decay between <code>pso_par_initial_c_cog</code> and <code>pso_par_final_c_cog</code>, and <code>initial_c_soc</code> and <code>pso_par_final_c_soc</code>.</li>
+    </ul>
+    <li><code>double pso_par_c_cog</code> weight value on the 'cognitive' factor.</li>
+    <li><code>double pso_par_c_soc</code> weight value on the 'social' factor.</li>
+    <br>
+    <li><code>arma::vec pso_initial_lb</code> lower bounds on the initial population; defaults to <code>init_out_vals</code> $- \ 0.5$.</li>
+    <li><code>arma::vec pso_initial_ub</code> upper bounds on the initial population; defaults to <code>init_out_vals</code> $+ \ 0.5$.</li>
+</ul>
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<h3 style="text-align: left;" id="details"><strong style="font-size: 100%;">Details</strong></h3>
+
+<p>The PSO method in OptimLib is available in two varieties: the simple version, outlined first, and the a hybrid DE-PSO algorithm.</p>
+
+<hr>
+
+<h4> Basic Particle Swarm Optimization (PSO)</h4>
+
+<p>Let $X^{(i)}$ denote a $N_p \times d$-dimensional array of values at stage $i$ of the algorithm. The basic PSO algorithm is as follows.</p>
+<ul>
+    <li><strong>Update the velocity and position</strong> Sample $R_C,R_S \sim U^d(0,1)$, $d$-dimensional iid uniform random vectors, and set
+    $$V^{(i+1)}(j.:) = w V^{(i+1)}(j,:) + c_C R_C \odot (X_b^{(i)} (j,:) - X^{(i)}(j,:)) + c_S R_S \odot (g_b - X^{(i)}(j,:))$$
+    $$X^{(i+1)}(j,:) = X^{(i)}(j,:) + V^{(i+1)}(j,:)$$
+    where the values $c_C$ and $c_S$ are set by <code>pso_par_c_cog</code> and <code>pso_par_c_soc</code>, respectively, and '$\odot$' denotes the element-by-element (Hadamard) product.
+    <li><strong>Update local-best particle</strong></li>
+    $$X_b^{(i+1)} (j,:) = \begin{cases} X^{(i+1)}(j,:) & \text{ if } f(X^{(i+1)}(j,:)) < f(X_b^{(i)}) \\ X_b^{(i)} (j,:) & \text{ else } \end{cases}$$
+    <li><strong>Update the global-best particle</strong></li>
+    Let
+    $$X^* := \arg \min_{X_j} f(X(j,:))$$
+    Then
+    $$g_b = \begin{cases} X^* & \text{ if } f(X^*) < f(g_b) \\ g_b & \text{ else } \end{cases}$$
+    <li><strong>Reduce $w$ and update weights </strong></li>
+</ul>
+
+<p>The algorithm stops when the relative improvement in the objective function is less than <code>err_tol</code> between <code>pso_check_freq</code> number of generations, or when the total number of 'generations' exceeds <code>n_gen</code>.</p>
+
+<hr>
+
+<h4> Particle Swarm Optimization with Differentially-Perturbed Velocity (PSO-DV)</h4>
+
+<br>
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<h3 style="text-align: left;" id="examples"><strong style="font-size: 100%;">Examples</strong></h3>
+
+<p>To illustrate the effectiveness of PSO, we will tackle two well-known performance tests from the numerical optimization literature:</p>
+
+<ul>
+    <li>The Table function:</li>
+    $$\min_{x \in [-10,10]^2} \left\{ - \left| \sin (x_1) \cos(x_2) \exp \left( \left| 1 - \frac{\sqrt{x_1^2 + x_2^2}}{\pi} \right| \right) \right| \right\}$$
+    <li>Bukin's function No.6:</li>
+    $$\min_{x \in [-15,-5], y \in [-3,3]} \left\{ 100 \sqrt{| y - 0.01 x^2|} + 0.01 | x + 10 | \right\}$$
+</ul>
+
+<p>The first function is bumpy, contains many local minima, and four global minima; the second contains a particularly difficult-to-traverse ridge. Plots of both functions are given below.</p>
+
+<!-- <img class="img-responsive center-block" src="pics/rastrigin_fn.png" alt=""> -->
+
+<!-- <img class="img-responsive pull-left" src="pics/rastrigin_fn.png" alt="">  <img class="img-responsive pull-right" src="pics/ackley_fn_3d.png" alt="">  -->
+
+<div class="row">
+    <div class="col-md-6">
+        <h3 style="text-align: center;"><strong style="font-size: 110%;">Table Function</strong></h3>
+        <!-- <img class="img-responsive" src="pics/wsp_2.jpg" alt=""> -->
+        <img class="img-responsive center-block" src="pics/table_fn_3d.png" alt="">
+    </div>
+    <div class="col-md-6">
+        <h3 style="text-align: center;"><strong style="font-size: 110%;">Bukin No. 6</strong></h3>
+        <!-- <img class="img-responsive" src="pics/wsp_2.jpg" alt=""> -->
+        <!-- <img src="pics/rastrigin_fn.png" class="img-rounded pull-right" alt="Sphere" width="304" height="236"> -->
+        <img class="img-responsive center-block" src="pics/bukin_fn_3d.png" alt=""> 
+    </div>
+</div>
+
+<br>
+
+<p>Code implementing these examples with OptimLib is given below.</p>
+
+<pre class="brush: cpp;">
+#include "optim.hpp"
+
+double table_fn(const arma::vec& vals_inp, arma::vec* grad_out, void* opt_data)
+{
+    const double x = vals_inp(0);
+    const double y = vals_inp(1);
+    const double pi = arma::datum::pi;
+
+    double obj_val = - std::abs( std::sin(x)*std::cos(y)*std::exp( std::abs(1.0 - std::sqrt(x*x + y*y)/pi) ) );
+    //
+    return obj_val;
+}
+
+double bukin_fn(const arma::vec& vals_inp, arma::vec* grad_out, void* opt_data)
+{
+    const double x = vals_inp(0);
+    const double y = vals_inp(1);
+
+    double obj_val = 100*std::sqrt(std::abs(y - 0.01*x*x)) + 0.01*std::abs(x + 10);
+    //
+    return obj_val;
+}
+
+int main()
+{
+    //
+    // Table function
+
+    optim::algo_settings_t settings_1;
+
+    settings_1.pso_center_particle = false;
+    settings_1.pso_par_bounds = true;
+
+    arma::vec x_1 = arma::zeros(2,1);
+
+    settings_1.pso_lb = arma::zeros(2,1) - 10.0;
+    settings_1.pso_ub = arma::zeros(2,1) + 10.0;
+
+    settings_1.pso_n_pop = 5000;
+    settings_1.pso_n_gen = 4000;
+
+    bool success_1 = optim::pso(x_1,table_fn,nullptr,settings_1);
+
+    if (success_1) {
+        std::cout << "pso: Table test completed successfully." << std::endl;
+    } else {
+        std::cout << "pso: Table test completed unsuccessfully." << std::endl;
+    }
+
+    arma::cout << "pso: solution to Table test:\n" << x_1 << arma::endl;
+
+    //
+    // Bukin function no. 6
+
+    arma::vec x_2 = arma::ones(2,1) + 1.0; // initial values: (2,2)
+
+    bool success_2 = optim::de(x_2,bukin_fn,nullptr);
+
+    if (success_2) {
+        std::cout << "de: Bukin test completed successfully." << std::endl;
+    } else {
+        std::cout << "de: Bukin test completed unsuccessfully." << std::endl;
+    }
+
+    arma::cout << "de: solution to Bukin test:\n" << x_2 << arma::endl;
+
+    return 0;
+}
+</pre>
+
+    </div>
+    </div>
+    </div>
+
+    <div id="myfooter"></div>
+
+    <!-- jQuery -->
+    <!--<script src="js/jquery.js"></script>-->
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

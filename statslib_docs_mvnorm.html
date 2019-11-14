@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="description" content="StatsLib is a templated C++ library for fast computation of statistical distribution functions.">
+    <meta name="author" content="Keith O'Hara">
+
+    <meta name="keywords" content="Statistics, Probability, Distributions, C++, Cpp, C++11, constexpr, Econometrics" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="siteicon.ico">
+
+    <title>StatsLib: Multivariate Normal Distribution</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/modern-business.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Additional Settings -->
+    <link href="css/kthohr_settings.css" rel="stylesheet">
+
+    <!-- Syntax Highlighter -->
+    <script type="text/javascript" src="js/syntaxhighlighter.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/swift_theme.css">
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    
+    ga('create', 'UA-93902857-1', 'auto');
+    ga('send', 'pageview');
+
+    </script>
+
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script src="js/jquery.js"></script>
+    <script>
+        $(function(){
+            $("#mynavbar").load("navbar.html")
+            $("#statshead").load("statslib_header.html")
+            $("#myfooter").load("footer.html")
+        });
+    </script>
+
+</head>
+
+<style>
+pre {
+    display: inline-block;
+}
+</style>
+
+<body>
+
+    <!-- Navigation -->
+    <div id="mynavbar"></div>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading/Breadcrumbs -->
+        <div id="statshead"></div>
+
+<!--  -->
+
+<br>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a data-toggle="collapse" href="#collapse1"><h4><strong style="font-size: 120%;">StatsLib: Multivariate Normal Distribution</strong></h4></a>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <a href="#intro">Introduction</a> <br>
+                    <a href="#density">Density</a> <br>
+                    <a href="#random">Random Sampling</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  -->
+
+<div class="row">
+
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<h3 style="text-align: left;" id="intro"><strong style="font-size: 120%;">Introduction</strong></h3>
+
+<p>The density function of the Multivariate Normal distribution:</p>
+$$
+    f(\mathbf{x}; \boldsymbol{\mu}, \boldsymbol{\Sigma}) = \dfrac{1}{\sqrt{(2\pi)^k |\boldsymbol{\Sigma}|}} \exp \left( - \frac{1}{2} (\mathbf{x} - \boldsymbol{\mu})^\top \boldsymbol{\Sigma}^{-1} (\mathbf{x} - \boldsymbol{\mu}) \right)
+$$
+<p>where $k$ is the dimension of the real-valued vector $\mathbf{x}$.</p>
+
+<p>Parameters:</p>
+<ul>
+    <li><code>mu_par</code> is $\boldsymbol{\mu}$</li>
+    <li><code>sigma_par</code> is $\boldsymbol{\Sigma}$</li>
+</ul>
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<!--  -->
+
+<h3 style="text-align: left;" id="density"><strong style="font-size: 120%;">Density</strong></h3>
+
+<br>
+
+<p><strong>Definition:</strong></p>
+<pre class="brush: cpp;">
+template&lt;typename mT, typename eT = double&gt;
+statslib_inline
+eT dmvnorm(const mT& X, const mT& mu_par, const mT& Sigma_par, bool log_form = false);
+</pre>
+
+<p>Computes the density function.</p>
+
+<hr>
+
+<p><strong>Examples:</strong></p>
+<pre class="brush: cpp;">
+// parameters
+arma::mat mu = arma::zeros(5,1);
+arma::mat Sigma = arma::eye(5,5);
+
+// Armadillo input
+arma::mat X(5,1);
+X.fill(1.5);
+
+arma::mat dens_vals_mat = stats::dmvnorm(X,mu,Sigma);
+arma::mat log_dens_vals_mat = stats::dmvnorm(X,mu,Sigma,true);
+</pre>
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<!--  -->
+
+<h3 style="text-align: left;" id="random"><strong style="font-size: 120%;">Random Sampling</strong></h3>
+
+<br>
+
+<p><strong>Definition:</strong></p>
+<pre class="brush: cpp;"> 
+// vector draw
+template&lt;typename T&gt;
+statslib_inline
+T rmvnorm(const T& mu_par, const T& Sigma_par, const bool pre_chol = false);
+
+// n samples, outputs n x k matrix
+template&lt;typename T&gt;
+statslib_inline
+T rmvnorm(const uint_t n, const T& mu_par, const T& Sigma_par, const bool pre_chol = false);
+</pre>
+
+<p>Generates pseudo-random draws.</p>
+
+<hr>
+
+<p><strong>Examples:</strong></p>
+<pre class="brush: cpp;">
+// parameters
+arma::mat mu = arma::zeros(5,1);
+arma::mat Sigma = arma::eye(5,5);
+
+// Armadillo output
+arma::mat rand_mat = stats::rmvnorm&lt;arma::mat&gt;(mu,Sigma);
+</pre>
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+    </div>
+    </div>
+    </div>
+
+    <div id="myfooter"></div>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

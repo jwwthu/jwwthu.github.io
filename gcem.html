@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="description" content="Generalized Constant Expression Math: a compile-time templated library of special functions.">
+    <meta name="author" content="Keith O'Hara">
+
+    <meta name="keywords" content="generalized constant expression, constexpr, math, compile-time library, special functions, template metaprogramming, C++, C++11, C++14, Cpp, NYU, New York University, Econometrics, Research" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="siteicon.ico">
+
+    <title>Generalized Constant Expression Math (gcem)</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/modern-business.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Keith CSS -->
+    <link href="css/kthohr_settings.css" rel="stylesheet">
+
+    <!-- Syntax Highlighter -->
+    <script type="text/javascript" src="js/syntaxhighlighter.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/swift_theme.css">
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    
+    ga('create', 'UA-93902857-1', 'auto');
+    ga('send', 'pageview');
+
+    </script>
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script src="js/jquery.js"></script>
+    <script>
+        $(function(){
+            $("#mynavbar").load("navbar.html")
+            $("#gcemhead").load("gcem_header.html")
+            $("#myfooter").load("footer.html")
+        });
+    </script>
+
+</head>
+
+<style>
+pre {
+    display: inline-block;
+}
+</style>
+
+<body>
+
+    <!-- Navigation -->
+    <div id="mynavbar"></div>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading/Breadcrumbs -->
+        <div id="gcemhead"></div>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <br>
+        <h3 style="text-align: center;"><strong style="font-size: 130%;"><u>Generalized Constant Expression Math</u></strong></h3>
+         <!-- <p style="text-align: center;"><a href="https://github.com/kthohr/gcem" target="_blank"><i class="fa fa-github-square fa-2x" style="color:black"></i></a></p>  -->
+         <p style="text-align: center;"><a class="github-button" href="https://github.com/kthohr/gcem/subscription" data-icon="octicon-eye" data-show-count="true" data-count-aria-label="# watchers on GitHub" aria-label="Watch kthohr/gcem on GitHub">Watch</a> 
+         <a class="github-button" href="https://github.com/kthohr/gcem" data-icon="octicon-star" data-show-count="true" aria-label="Star kthohr/gcem on GitHub">Star</a> 
+         <a class="github-button" href="https://github.com/kthohr/gcem/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork kthohr/gcem on GitHub">Fork</a>
+         <!--  -->
+         </p>
+         <p style="text-align: center;"><a href="https://travis-ci.org/kthohr/gcem" target="_blank"><img src="https://travis-ci.org/kthohr/gcem.svg?branch=master" alt="GCEM Build"></a> 
+         <a href="https://ci.appveyor.com/project/kthohr/gcem" target="_blank"><img src="https://ci.appveyor.com/api/projects/status/5kxxkmisln1j4h6b?svg=true" alt="GCEM Build"></a> 
+         <a href="https://codecov.io/github/kthohr/gcem?branch=master" target="_blank"><img src="https://codecov.io/github/kthohr/gcem/coverage.svg?branch=master" alt="Coverage Status"></a>
+         <a href="https://www.codacy.com/app/kthohr/gcem?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=kthohr/gcem&amp;utm_campaign=Badge_Grade" target="_blank"><img src="https://api.codacy.com/project/badge/Grade/19bf49e64ca04c848f6a0a8030d1f131" alt="Codacy Badge"></a>
+         <a href="https://lgtm.com/projects/g/kthohr/gcem" target="_blank"><img src="https://img.shields.io/lgtm/grade/cpp/g/kthohr/gcem.svg?logo=lgtm&logoWidth=18" alt="Language grade: C/C++"></a>
+         <a href="https://gcem.readthedocs.io/en/latest/?badge=latest" target="_blank"><img src="https://readthedocs.org/projects/gcem/badge/?version=latest" alt="Documentation Status"></a>
+         </p>
+    </div>
+</div>
+
+<br>
+
+<!--  -->
+
+<div class="row">
+
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+<p>GCE-Math (<strong>G</strong>eneralized <strong>C</strong>onstant <strong>E</strong>xpression Math, or <strong>gcem</strong>) is a templated C++ library enabling compile-time computation of mathematical functions.</p>
+
+<hr>
+
+<p><strong>Features:</strong></p>
+<ul>
+    <li>The library is written in C++11 <a href="http://en.cppreference.com/w/cpp/language/constexpr" target="_blank">constexpr</a> format, and is C++11/14/17 compatible.</li>
+    <li>Continued fraction and series expansions are implemented using recursive templates.</li>
+    <li>The <code>gcem::</code> syntax is identical to the C++ standard library (<code>std::</code>).</li>
+    <li>Tested and accurate to floating-point precision against the C++ standard library.</li>
+    <li>Released under a permissive, non-GPL license.</li>
+</ul>
+
+<p><strong>Author</strong>: Keith O'Hara</p>
+
+<p><a href="https://raw.githubusercontent.com/kthohr/gcem/master/LICENSE" target="_blank"><img src="https://img.shields.io/badge/Licence-Apache%202.0-blue.svg" alt="License"></a></p>
+
+<hr>
+
+<p><strong>Contents:</strong></p>
+<ul>
+    <li><a href="#status-and-documentation">Status and Documentation</a></li>
+    <li><a href="#installation-and-tests">Installation and Tests</a></li>
+    <li><a href="#jupyter-notebook">Jupyter Notebook</a></li>
+    <li><a href="#general-syntax">General Syntax</a></li>
+    <li><a href="#examples">Examples</a></li>
+</ul>
+
+<!--  -->
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<h3 style="text-align: left;" id="status-and-documentation"><strong style="font-size: 95%;">Status and Documentation</strong></h3>
+
+<p><strong>Coverage:</strong></p>
+<ul>
+    <li>basic C++ standard library functions:</li>
+    <ul>
+        <li><code>abs</code>, <code>exp</code>, <code>log</code>, <code>max</code>, <code>min</code>, <code>pow</code>, <code>sqrt</code></li>, <code>gcd</code>, <code>lcm</code>, and more
+    </ul>
+    <li>trigonometric functions:</li>
+    <ul>
+        <li>basic: <code>cos</code>, <code>sin</code>, <code>tan</code></li>
+        <li>inverse: <code>acos</code>, <code>asin</code>, <code>atan</code></li>
+    </ul>
+    <li>hyperbolic (area) functions:</li>
+    <ul>
+        <li> <code>cosh</code>, <code>sinh</code>, <code>tanh</code>, <code>acosh</code>, <code>asinh</code>, <code>atanh</code></li>
+    </ul>
+    <li>special functions:</li>
+    <ul>
+        <li>factorials and the binomial coefficient: <code>factorial</code>, <code>binomial_coef</code></li>
+        <li>beta, gamma, and multivariate gamma functions: <code>beta</code>, <code>lbeta</code>, <code>lgamma</code>, <code>tgamma</code>, <code>lmgamma</code></li>
+        <li>the Gaussian error function and inverse error function: <code>erf</code>, <code>erf_inv</code></li>
+        <li>(regularized) incomplete beta and incomplete gamma functions: <code>incomplete_beta</code>, <code>incomplete_gamma</code></li>
+        <li>inverse incomplete beta and incomplete gamma functions: <code>incomplete_beta_inv</code>, <code>incomplete_gamma_inv</code></li>
+    </ul>
+</ul>
+
+<hr>
+
+<p>Full documentation is available online:</p>
+
+<a href="https://gcem.readthedocs.io/en/latest/?badge=latest" target="_blank"><img src="https://readthedocs.org/projects/gcem/badge/?version=latest" alt="Documentation Status"></a>
+
+<!--  -->
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<h3 style="text-align: left;" id="installation-and-tests"><strong style="font-size: 95%;">Installation and Tests</strong></h3>
+
+<ul>
+    <li>The source code is available on <a href="https://github.com/kthohr/gcem" target="_blank">GitHub</a>. Download the latest version with git:</li>
+    <pre class="brush: bash;">
+    git clone https://github.com/kthohr/gcem.git ./gcem</pre>
+</ul>
+
+<p>GCE-Math is a header-only library and does not require any additional libraries (beyond a C++11 compatible compiler). Simply add the header files to your project using:</p>
+
+<pre class="brush: cpp;">
+#include "gcem.hpp"</pre>
+
+<hr>
+
+<h4 style="text-align: left;"><strong style="font-size: 95%;">Conda</strong></h4>
+
+<!-- [![Anaconda-Server Badge](https://anaconda.org/kthohr/gcem/badges/platforms.svg)](https://anaconda.org/kthohr/gcem) -->
+
+<p>You can install GCE-Math using the conda package manager.</p>
+
+<pre class="brush: bash;">
+conda install gcem -c kthohr</pre>
+
+<a href="https://anaconda.org/kthohr/gcem" target="_blank"><img src="https://anaconda.org/kthohr/gcem/badges/platforms.svg" alt="Anaconda Builds"></a>
+
+<hr>
+
+<h4 style="text-align: left;"><strong style="font-size: 95%;">CMake</strong></h4>
+
+<p>You can also install the library from source using CMake.</p>
+
+<pre class="brush: bash;">
+# clone gcem from GitHub
+git clone https://github.com/kthohr/gcem ./gcem
+
+# make a build directory
+cd ./gcem
+mkdir build
+cd build
+
+# generate Makefiles and install
+cmake .. -DCMAKE_INSTALL_PREFIX=/gcem/install/location
+make install</pre>
+
+<p>For example, <code>/gcem/install/location</code> could be <code>/usr/local/</code>.</p>
+
+<hr>
+
+<h4 style="text-align: left;"><strong style="font-size: 95%;">Test Suite</strong></h4>
+
+<p>There are two ways to build the test suite. On Unix-alike systems, a Makefile is available under <code>tests/</code>.</p>
+
+<pre class="brush: bash;">
+cd ./gcem/tests
+make
+./run_tests</pre>
+
+<p>With CMake, the option <code>BUILD_TESTS=1</code> generates the necessary Makefiles to build the test suite.</p>
+
+<pre class="brush: bash;">
+cd ./gcem
+mkdir build
+
+cd build
+cmake ../ -DBUILD_TESTS=1 -DCMAKE_INSTALL_PREFIX=/gcem/install/location
+make gcem_tests
+
+cd tests
+./exp.test</pre>
+
+<!--  -->
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<h3 style="text-align: left;" id="jupyter-notebook"><strong style="font-size: 95%;">Jupyter Notebook</strong></h3>
+
+<p>You can test the library online using an interactive Jupyter notebook:</p>
+
+<a href="https://mybinder.org/v2/gh/kthohr/gcem/master?filepath=notebooks%2Fgcem.ipynb" target="_blank"><img src="https://mybinder.org/badge.svg" alt="Binder"></a>
+
+<!--  -->
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<h3 style="text-align: left;" id="general-syntax"><strong style="font-size: 95%;">General Syntax</strong></h3>
+
+GCE-Math functions are written as C++ templates with <code>constexpr</code> specifiers, the format of which might be confusing to users unfamiliar with template-based programming. For example, the <a href="https://en.wikipedia.org/wiki/Error_function" target="_blank">Gaussian error function</a> (<code>erf</code>) is defined as:
+
+<pre class="brush: cpp;">
+template&lt;typename T&gt;
+constexpr
+return_t&lt;T&gt;
+erf(const T x);</pre>
+
+where a set of internal templated <code>constexpr</code> functions will implement a continued fraction expansion to return a value of type <code>return_t&lt;T&gt;</code>. This output type ('<code>return_t&lt;T&gt;</code>') is generally determined by the input type, e.g., <code>int</code>, <code>float</code>, <code>double</code>, <code>long double</code>, etc. When <code>T</code> is an intergral type, the output will be upgraded to <code>return_t&lt;T&gt; = double</code>, otherwise <code>return_t&lt;T&gt; = T</code>. For types not covered by <code>std::is_integral</code>, recasts should be used.
+
+<!--  -->
+
+<hr style="height:2px;border-width:0;background-color:black">
+
+<h3 style="text-align: left;" id="examples"><strong style="font-size: 95%;">Examples</strong></h3>
+
+<p>To calculate 10!:</p>
+<pre class="brush: cpp;">
+#include "gcem.hpp"
+
+int main()
+{
+    constexpr int x = 10;
+    constexpr int res = gcem::factorial(x);
+
+    return 0;
+}</pre>
+
+<p>Inspecting the assembly code generated by Clang:</p>
+
+<pre class="brush: text;">
+    _main:                                  ## @main
+	.cfi_startproc
+## BB#0:
+	push	rbp
+Lcfi0:
+	.cfi_def_cfa_offset 16
+Lcfi1:
+	.cfi_offset rbp, -16
+	mov	rbp, rsp
+Lcfi2:
+	.cfi_def_cfa_register rbp
+	xor	eax, eax
+	mov	dword ptr [rbp - 4], 0
+	mov	dword ptr [rbp - 8], 10
+	mov	dword ptr [rbp - 12], 3628800
+	pop	rbp
+	ret
+	.cfi_endproc
+</pre>
+
+<p>We see that a function call has been replaced by a numeric value (10! = 3628800).</p>
+
+    </div>
+    </div>
+    </div>
+
+    <div id="myfooter"></div>
+
+    <!-- jQuery -->
+    <!--<script src="js/jquery.js"></script>-->
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
