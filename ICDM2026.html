@@ -2,251 +2,642 @@
 <html lang="en">
 
 <head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>LLM4MDF 2026 - Workshop on Large Language Models for Multimodal Data Fusion</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Favicons -->
+  <link href="./assetsicdm/img/favicon.svg" rel="icon">
+  <link href="./assetsicdm/img/favicon.svg" rel="apple-touch-icon">
 
-    <meta name="description" content="LLM4MDF Workshop - IEEE ICDM 2026">
-    <meta name="author" content="LLM4MDF Workshop Organizers">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
 
-    <meta name="keywords" content="ICDM, Workshop, Large Language Models, Multimodal Data Fusion, Data Mining, Machine Learning" />
+  <!-- Vendor CSS Files -->
+  <link href="./assetsicdm/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="./assetsicdm/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="./assetsicdm/vendor/aos/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
-    <link rel="shortcut icon" type="image/x-icon" href="siteicon.ico">
 
-    <title>LLM4MDF 2026 - Workshop on Large Language Models for Multimodal Data Fusion</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/modern-business.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- Additional Settings -->
-    <link href="css/kthohr_settings.css" rel="stylesheet">
-
-    <style>
-    	.footer-images{
-    		text-align: center;
-    	}
-    </style>
-
-    <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-93902857-1', 'auto');
-    ga('send', 'pageview');
-
-    </script>
-
-    <script src="js/jquery.js"></script>
-    <script>
-        $(function(){
-            $("#mynavbar").load("navbar.html")
-            $("#myfooter").load("footer.html")
-        });
-    </script>
+  <!-- Main CSS File -->
+  <link href="./assetsicdm/css/main.css" rel="stylesheet">
 
 </head>
 
-<body>
+<body class="index-page">
 
-    <!-- Navigation -->
-    <div id="mynavbar"></div>
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-    <div class="container">
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <img src="./assetsicdm/img/emb-svgrepo-com.svg" alt="logo">
+        <h1 class="sitename">LLM4MDF 2026</h1>
+      </a>
 
-        <!-- Features Section -->
-        <div class="row">
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#hero" class="active">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#submissions">Submissions</a></li>
+          <li><a href="#program">Program</a></li>
+          <li><a href="#organization">Organization</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
 
-            <div class="col-md-2"></div>
-
-            <div class="col-md-8">
-                <h2 class="page-header" align="center"> Call for Workshop Paper </h2>
-                <h3 class="page-header" align="center"> Workshop on Large Language Models for Multimodal Data Fusion (LLM4MDF) </h3>
-                <h3 align="center"><a href="http://icdm2026.neu.edu.cn/main.htm">IEEE ICDM 2026</a></h3>
-                <h3 align="center">Shenzhen, China, November 2026</h3>
-
-                <div class="container-fluid" id="overview" style="padding:2rem 2rem 2rem 2rem">
-                    <header>
-                        <h2>Summary</h2>
-                    </header>
-
-                    <p align="left">
-                        The Workshop on Large Language Models for Multimodal Data Fusion (LLM4MDF) is a specialized, in-depth forum collocated with the IEEE International Conference on Data Mining (ICDM). It targets the emerging intersection of large language models (LLMs), multimodal learning, and data fusion, which are high-impact directions aligned with the core mission to advance data mining theory, algorithms, and applications. LLM4MDF focuses on LLM-driven fusion of text, images, audio, video, time series, graphs, and sensor data, bridging semantic understanding and heterogeneous data integration.
-                    </p>
-                    <p align="left">
-                        This workshop directly extends the scope of ICDM on multimodal data mining, heterogeneous data integration, and large-model-driven knowledge discovery. It complements the main conference by fostering cross-community collaboration on LLM-powered multimodal fusion, addressing critical challenges in unifying diverse data types for reliable, interpretable, and scalable data mining. By bringing together researchers and practitioners, LLM4MDF drives state-of-the-art advances in multimodal data mining and supports the goal of shaping the future of data science.
-                    </p>
-                </div>
-
-                <div class="container-fluid" id="overview" style="padding:2rem 2rem 2rem 2rem">
-                    <header>
-                        <h2>Main Topics</h2>
-                    </header>
-
-                    <p align="left">
-                        </p><ul align="left" style="list-style-type:disc">
-                            <li>LLM-based multimodal data representation, alignment, and fusion architectures</li>
-                            <li>Dynamic, adaptive, and interpretable multimodal data fusion mechanisms</li>
-                            <li>Multimodal knowledge extraction, reasoning, and generation</li>
-                            <li>Scalable, efficient, and robust multimodal data fusion systems</li>
-                            <li>Real-world multimodal data fusion applications</li>
-                        </ul>
-                    <p></p>
-                </div>
-
-                <div class="container-fluid" id="overview" style="padding:2rem 2rem 2rem 2rem">
-                    <header>
-                        <h2>Submission Guide</h2>
-                    </header>
-
-                    <p align="left">
-                        Please follow the submission guideline from the <a href="http://icdm2026.neu.edu.cn/main.htm">ICDM 2026</a> Submission Website.
-                    </p>
-                </div>
-
-                <div class="container-fluid" id="overview" style="padding:2rem 2rem 2rem 2rem">
-                    <header>
-                        <h2>Important Dates</h2>
-                    </header>
-
-                    <p align="left">
-                        </p><ul align="left" style="list-style-type:disc">
-                            <li><strong>Workshop Paper Submission: August 20, 2026</strong></li>
-                            <li><strong>Workshop Paper Notifications: September 18, 2026</strong></li>
-                            <li><strong>Camera Ready: October 5, 2026</strong></li>
-                        </ul>
-                    <p></p>
-                </div>
-
-                <div class="container-fluid" id="overview" style="padding:2rem 2rem 2rem 2rem">
-                    <header>
-                        <h2>Workshop Organizers</h2>
-                    </header>
-
-                    <p align="left">
-                        <strong>Weiwei Jiang, Beijing University of Posts and Telecommunications, China (jww@bupt.edu.cn)</strong>
-                    </p>
-                    <p style="text-align: justify;" align="left">
-                        Prof. Weiwei Jiang (IEEE Senior Member, ACM Member) is currently an associate professor with the School of Information and Communication Engineering, Beijing University of Posts and Telecommunications, and Key Laboratory of Universal Wireless Communications, Ministry of Education. He received the B.Sc. and Ph.D. degrees from the Department of Electronic Engineering, Tsinghua University, Beijing, China, in 2013 and 2018, respectively. His current research interests include artificial intelligence, machine learning, big data, wireless communication and edge computing. He has published more than 100 academic papers in IEEE Trans and other journals, with more than 6400 citations in Google Scholar. He is one of 2022, 2023, 2024 and 2025 Stanford's List of World's Top 2% Scientists.
-                    </p>
-
-                    <p align="left">
-                        <strong>Stefano Cirillo, University of Salerno, Italy (scirillo@unisa.it)</strong>
-                    </p>
-                    <p style="text-align: justify;" align="left">
-                        Prof. Stefano Cirillo is an Assistant Professor (Tenure Track) in the Data Science and Artificial Intelligence Systems group within the Department of Computer Science at the University of Salerno, Italy. His research interests include Artificial Intelligence, Data Profiling, Data Privacy, and Social Networks. He was a Visiting Researcher at the Hasso Plattner Institute in the Information Systems Group. He is an Associate Editor of several journals and has published extensively in top-tier venues.
-                    </p>
-
-                    <p align="left">
-                        <strong>Ahmad Taher Azar, Prince Sultan University, Saudi Arabia (aazar@psu.edu.sa)</strong>
-                    </p>
-                    <p style="text-align: justify;" align="left">
-                        Prof. Ahmad Taher Azar is a full Professor at Prince Sultan University, Riyadh, Kingdom Saudi Arabia. He is the leader of Automated Systems & Computing Lab (ASCL), Prince Sultan University, Saudi Arabia. Prof. Azar specializes in artificial intelligence, machine learning, control theory and applications, robotics, computational intelligence, reinforcement learning, and dynamic system modeling. He has published/co-published over 500 research papers, book chapters, and conference proceedings in prestigious peer-reviewed journals.
-                    </p>
-
-                    <p align="left">
-                        <strong>Muhammet Deveci, University College London, UK (m.deveci@ucl.ac.uk)</strong>
-                    </p>
-                    <p style="text-align: justify;" align="left">
-                        Dr. Muhammet Deveci is currently an Honorary Senior Research Fellow at The Bartlett School of Sustainable Construction in the University College London, London, UK. He is also a Full Professor at the Department of Industrial Engineering in the Turkish Naval Academy, National Defence University, Istanbul, Turkey. Dr Deveci is an outstanding researcher and a prolific author with over 330 papers in journals indexed by SCI/SCI-E. His research focuses on intelligent decision support systems underpinned by computational intelligence.
-                    </p>
-                </div>
-
-                <div class="container-fluid" id="overview" style="padding:2rem 2rem 2rem 2rem">
-                    <header>
-                        <h2>Technical Program Committee Members</h2>
-                    </header>
-
-                    <p align="left">
-                        </p><ul align="left" style="list-style-type:disc">
-                            <li>Sai Huang, Beijing University of Posts and Telecommunications, China</li>
-                            <li>Dingyou Ma, Beijing University of Posts and Telecommunications, China</li>
-                            <li>Yixin He, Jiaxing University, China</li>
-                            <li>Andrea Mauri, Université Claude Bernard Lyon 1, France</li>
-                            <li>Gaetano Cimino, University of Salerno, Italy</li>
-                            <li>Eliana Pastor, Polytechnic University of Turin, Italy</li>
-                            <li>Gianluca Bonifazi, Marche Polytechnic University, Italy</li>
-                            <li>Maurizio Atzori, University of Cagliari, Italy</li>
-                            <li>Luca Zecchini, Technische Universität Berlin, Germany</li>
-                            <li>Gerardo Vitagliano, MIT, USA</li>
-                            <li>Luca Virgili, Marche Polytechnic University, Italy</li>
-                            <li>Weifeng Zhu, Guangdong Baiyun University, China</li>
-                            <li>Wenping Song, National University of Defense Technology, China</li>
-                            <li>Jianbin Mu, Zhejiang University of Technology, China</li>
-                            <li>Miao He, Yanqi Lake Beijing Institute of Mathematical Sciences and Applications, China</li>
-                            <li>Weixi Gu, China Academy of Industrial Internet, China</li>
-                            <li>Shun Li, Ocean University Of China, China</li>
-                            <li>Xuedong Li, Beihang University, China</li>
-                            <li>Shams ur Rehman, HITEC University Taxila, Pakistan</li>
-                            <li>Ramanathan Lakshmanan, Vellore Institute of Technology, India</li>
-                            <li>Muhammad Arslan Akram, Centre for Secure Information Technologies (CSIT), United Kingdom</li>
-                            <li>Muhammad Awais Javeed, Southeast University, China</li>
-                            <li>Mohammed Amin Almaiah, The University of Jordan, Jordan</li>
-                            <li>Stefano Cirillo, University of Salerno, Italy</li>
-                            <li>Momina Shaheen, University of Roehampton, United Kingdom</li>
-                            <li>Tanveer Ahmad, University of Cyprus, Cyprus</li>
-                            <li>Arshad Khan, Yoobee College of Creative Innovation, New Zealand</li>
-                            <li>Yahya Fikri, Abdelmalek Essaadi University, Morocco</li>
-                            <li>Logeshwaran Jaganathan, Christ University, Bengaluru, India</li>
-                            <li>Mohammed Zakariah, King Saud University, Saudi Arabia</li>
-                            <li>Danish Jamil, Sir Syed University of Engineering and Technology, Pakistan</li>
-                            <li>Muhammad Asghar Khan, Prince Mohammad Bin Fahd University, Saudi Arabia</li>
-                            <li>Rajesh Kumar Dhanaraj, Symbiosis International (Deemed University), India</li>
-                            <li>Tai Fei, Dortmund University Of Applied Sciences And Arts, Germany</li>
-                            <li>M. Shahid Anwar, King Fahd University of Petroleum and Minerals, KSA</li>
-                            <li>Bhanuprakash Madupati, Department of Corrections, USA</li>
-                            <li>Anurag Satpathy, Missouri University of Science and Technology, USA</li>
-                            <li>Praveen R, National Institute of Technology Puducherry, India</li>
-                            <li>J P ANANTH, Dayananda Sagar University, India</li>
-                            <li>Vinayakumar Ravi, Prince Mohammad Bin Fahd University, Saudi Arabia</li>
-                            <li>Surjeet Dalal, Amity University Haryana, India</li>
-                            <li>Altaf Osman Mulani, SKN Sinhgad College of Engineering, India</li>
-                            <li>Gurunathan V, Dr. Mahalingam College of Engineering and Technology, India</li>
-                            <li>Bilal Mushtaq, Beaconhouse International College, Pakistan</li>
-                            <li>Amjad Iqbal, Carleton University, Canada</li>
-                            <li>Kannimuthu Subramanian, Karpagam College of Engineering, India</li>
-                            <li>Raul Parada Medina, Centre Tecnologic de Telecomunicacions de Catalunya (CTTC), Spain</li>
-                            <li>Noha Hassan, Toronto Metropolitan University, Canada</li>
-                            <li>S. Muthakshi, M.O.P. Vaishnav College for Women (Autonomous), India</li>
-                            <li>Sunil Jha, Adani University, Ahmedabad, India</li>
-                            <li>Joydev Ghosh, SR University, Warangal, India</li>
-                            <li>J Vijitha Ananthi, Vignan's Foundation for Science, Technology & Research, India</li>
-                            <li>Muhammad Baqer Mollah, University of Houston, Texas, USA</li>
-                            <li>Sheikh Umar, Lovely Professional University, India</li>
-                            <li>Shalini Gambhir, Vivekananda Institute of Professional Studies - Technical Campus, New Delhi, India</li>
-                            <li>Hafiz Muhammad Attaullah, Multimedia University, Malaysia</li>
-                            <li>Minyechil Alehegn Tefera, National Taipei University of Technology, Taiwan</li>
-                            <li>Amjad Ali Amjad, Zhejiang University, China</li>
-                            <li>Ihababdelbasset ANNAKI, University Mohammed Premier, Oujda, Morocco</li>
-                            <li>Awais Khan Jumani, Sun Yat-Sen University, China</li>
-                        </ul>
-                    <p></p>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- /.row -->
+      <!--<a class="cta-btn menu-more" href="index.html#about">Find out more</a>-->
 
     </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+
+      <img src="./assetsicdm/img/location/shenyang.jpg" alt="" data-aos="fade-in">
+      <!--./assetsicdm/img/hero-bg.jpg 273D4E ff49178f-->
+
+      <div class="container d-flex flex-column align-items-left">
+        <p data-aos="fade-up" data-aos-delay="100" style="color: #ff4a17;">Workshop on</p>
+        <h2 data-aos="fade-up" data-aos-delay="100">Large Language Models for Multimodal Data Fusion</h2>
+        <p data-aos="fade-up" data-aos-delay="100" class="line mb-3"></p>
+        <p data-aos="fade-up" data-aos-delay="200">📍 Shenyang, China, November 12-15, 2026 </p>
+        <p data-aos="fade-up" data-aos-delay="200">🤝 Held as part of the IEEE International Conference on Data Mining
+          (<a href="http://icdm2026.neu.edu.cn/main.htm" target="_blank" rel="noopener noreferrer"
+            style="font-size: 18px; color: #ff4917a7">IEEE ICDM 2026</a>)</p>
+        <p data-aos="fade-up" data-aos-delay="200">📅 November 2026</p>
+        <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
+          <a href="#about" class="btn-get-started">Find out more</a>
+        </div>
+      </div>
+
+    </section><!-- /Hero Section -->
+
+    <!-- About Section -->
+    <section id="about" class="about section pb-2">
+
+      <div class="container">
+
+        <div class="row gy-4">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-duration="550" data-aos-delay="50">
+            <h3>About the workshop</h3>
+            <p>The <strong>Workshop on Large Language Models for Multimodal Data Fusion (LLM4MDF)</strong> is a
+              specialized, in-depth forum collocated with the IEEE International Conference on Data Mining (ICDM). It
+              targets the emerging intersection of <strong>large language models (LLMs)</strong>, <strong>multimodal
+                learning</strong>, and <strong>data fusion</strong>, which are high-impact directions aligned with the
+              core mission to advance data mining theory, algorithms, and applications.
+            </p>
+            <p>LLM4MDF focuses on <strong>LLM-driven fusion</strong> of text, images, audio, video, time series, graphs,
+              and sensor data, bridging <strong>semantic understanding</strong> and <strong>heterogeneous data
+                integration</strong>.
+            </p>
+            <p>This workshop directly extends the scope of ICDM on multimodal data mining, heterogeneous data
+              integration, and large-model-driven knowledge discovery. It complements the main conference by fostering
+              <strong>cross-community collaboration</strong> on LLM-powered multimodal fusion, addressing critical
+              challenges in unifying diverse data types for <strong>reliable</strong>, <strong>interpretable</strong>,
+              and <strong>scalable</strong> data mining.
+            </p>
+
+            <p>
+              By bringing together researchers and practitioners, LLM4MDF drives state-of-the-art advances in multimodal
+              data mining and supports the goal of shaping the future of data science.
+            </p>
+
+          </div>
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="content ps-0 ps-lg-5">
+              <h3>Themes and topics</h3>
+              <p>We explore how large language models can be leveraged to <strong>fuse</strong> and
+                <strong>mine</strong> heterogeneous multimodal data sources, investigating emerging approaches that are
+                reliable, interpretable, and scalable.
+              </p>
+              <h5 class="mb-3"><strong>Topics of interest include, but are not limited to:</strong></h5>
+              <ul>
+                <li><i class="bi bi-check-circle-fill"></i> <span>LLM-based multimodal data representation, alignment,
+                    and fusion architectures.</span></li>
+                <li><i class="bi bi-check-circle-fill"></i> <span>Dynamic, adaptive, and interpretable multimodal data
+                    fusion mechanisms.</span></li>
+                <li><i class="bi bi-check-circle-fill"></i> <span>Multimodal knowledge extraction, reasoning, and
+                    generation.</span></li>
+                <li><i class="bi bi-check-circle-fill"></i> <span>Scalable, efficient, and robust multimodal data fusion
+                    systems.</span></li>
+                <li><i class="bi bi-check-circle-fill"></i> <span>Real-world multimodal data fusion applications.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      </div>
+
+    </section><!-- /About Section -->
+
+    <!-- Stats Section -->
+    <section id="stats" class="stats section light-background">
+
+      <div class="container"> <!-- data-aos="fade-up" data-aos-delay="100" -->
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4 col-md-12 col-sm-12">
+            <div class="stats-item d-flex align-items-center w-100 h-100">
+              <i class="fa-solid fa-map-pin color-blue flex-shrink-0"></i>
+              <div>
+                <span class="fs-4">Shenyang, China</span>
+                <p>Where</p>
+              </div>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-4 col-md-12 col-sm-12">
+            <div class="stats-item d-flex align-items-center w-100 h-100">
+              <i class="fa-solid fa-handshake color-blue flex-shrink-0"></i>
+              <div>
+                <span class="fs-4"><a href="http://icdm2026.neu.edu.cn/main.htm" target="_blank"
+                    rel="noopener noreferrer">IEEE ICDM 2026</a></span>
+                <p>Co-located</p>
+              </div>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-4 col-md-12 col-sm-12">
+            <div class="stats-item d-flex align-items-center w-100 h-100">
+              <i class="fa-solid fa-calendar-days color-blue flex-shrink-0"></i>
+              <div>
+                <span class="fs-4">November 12-15, 2026</span>
+                <p>When</p>
+              </div>
+            </div>
+          </div><!-- End Stats Item -->
 
 
 
-    <div id="myfooter"></div>
 
-    <!-- jQuery -->
-    <!--<script src="js/jquery.js"></script>-->
+        </div>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+      </div>
+
+    </section><!-- /Stats Section -->
+
+    <!-- Submissions Section -->
+    <section id="submissions" class="about section pb-0 light-background mt-4">
+
+      <!-- Section Title -->
+      <div class="container section-title pb-1" data-aos="fade-up">
+        <h2>Submissions</h2>
+        <p class="mb-4">SUBMISSION GUIDELINES</p>
+
+        <div class="container ps-lg-5">
+
+
+          <h3 class="fw-bold">
+            <span class="ps-3 pe-3 pb-1 pt-1"
+              style="width: 150px; background-color: #ff4a17; color: #ffffff; ">Important dates</span>
+            <div class="content ps-0 ps-lg-3 fs-5 mt-4">
+              <ul>
+                <li><i class="fa-solid fa-circle" style="top: 0.3em; font-size: 10px;"></i> <strong>Paper submission
+                    due: </strong>
+                  August 20, 2026</li>
+                <li><i class="fa-solid fa-circle" style="top: 0.3em; font-size: 10px;"></i>
+                  <strong>Notification:</strong> September 18, 2026
+                </li>
+                <li><i class="fa-solid fa-circle" style="top: 0.3em; font-size: 10px;"></i>
+                  <strong>Camera-ready:</strong> October 5, 2026
+                </li>
+              </ul>
+            </div>
+
+            <h4 class="mt-4 fw-bold">What to submit</h4>
+            <h6 class="pb-2">We welcome the following types of submissions:</h6>
+            <div class="content ps-0 ps-lg-3">
+              <ul class="fs-6">
+                <li><i class="fa-solid fa-minus" style="top: 0.5em; font-size: 10px; color: #273D4E"></i>
+                  <span></span><strong>Regular papers</strong> Authors are invited to submit original papers, which have
+                  not been published elsewhere and which are not currently under consideration for another journal,
+                  conference or workshop. Manuscripts must be submitted electronically through the online submission
+                  system.
+                  Paper should be limited to a maximum of ten (10) pages, in the IEEE 2-column format (<a
+                    href="https://www.ieee.org/conferences/publishing/templates.html">https://www.ieee.org/conferences/publishing/templates.html</a>),
+                  including the references and any possible appendices. Submissions longer than 10 pages will be
+                  rejected without review. All submissions will be triple-blind reviewed by the Program Committee on the
+                  basis of technical quality, relevance to scope of the conference, originality, significance, and
+                  clarity. The following sections give further information for authors.</span>
+                </li>
+                <!--<li><i class="fa-solid fa-minus" style="top: 0.5em; font-size: 10px; color: #273D4E"></i>
+                  <strong>Short papers</strong> (at least 5 pages, up to 8 pages, excluding references): novel, original
+                  research presenting <em>preliminary results or ongoing work</em> that has not been published or
+                  submitted elsewhere.
+                </li>
+                <li><i class="fa-solid fa-minus" style="top: 0.5em; font-size: 10px; color: #273D4E"></i>
+                  <strong>Extended abstracts</strong> (at least 5 pages, excluding references): ongoing projects, new
+                  ideas, or early-stage results.
+                </li>
+                <li><i class="fa-solid fa-minus" style="top: 0.5em; font-size: 10px; color: #273D4E"></i>
+                  <strong>Non-archival papers</strong>: relevant work recently accepted or currently
+                  submitted at other venues, including abstracts, discussion papers, critical reviews of
+                  recently published work, position papers, and presentations of ongoing or incomplete research.
+                </li>-->
+
+
+              </ul>
+            </div>
+
+            <h4 class="mt-3 fw-bold">How to submit</h4>
+            <div class="content ps-0 ps-lg-3">
+              <ul class="fs-6">
+                <li><i class="fa-solid fa-minus" style="top: 0.5em; font-size: 10px; color: #273D4E"></i>
+                  <span></span><strong>Formatting and submission:</strong> Please follow the submission guideline from
+                  the <a href="http://icdm2026.neu.edu.cn/main.htm" target="_blank" rel="noopener noreferrer">ICDM
+                    2026</a> Submission Website.
+                </li>
+                <!--<li><i class="fa-solid fa-minus" style="top: 0.5em; font-size: 10px; color: #273D4E"></i>
+                  <span></span><strong>Publication:</strong>
+                  Accepted papers will be published in an open-access volume of the CEUR Proceedings. The proceedings
+                  will include only original contributions (regular papers, short papers, and extended abstracts of at
+                  least 5 pages). Non-archival submissions can present relevant work recently accepted or currently
+                  submitted at other venues. At least one author of each accepted paper must register for the workshop
+                  and present the paper.
+                  </span>
+                </li>-->
+              </ul>
+            </div>
+
+            <!--<h4 class="mt-3 fw-bold">Rules for Paper Selection</h4>
+            <h6 class="pb-2">All submitted papers will undergo a peer-review process. Each submission will be evaluated by at least two independent reviewers, 
+                  selected from the Program Committee or invited experts. Reviews will assess relevance to the workshop topics, scientific quality, 
+                  originality, clarity of presentation, and potential impact. Based on the reviewers' evaluations and discussion among the Program 
+                  Committee, the workshop chairs will make the final acceptance decisions. Only accepted papers presented at the workshop will be 
+                  included in the CEUR-WS proceedings. We are committed to ensuring a fair, transparent, and high-quality selection process.</h6>-->
+
+
+        </div>
+
+
+      </div><!-- End Section Title -->
+
+
+    </section><!-- /Submissions Section -->
+
+
+    <!-- Program Section #273d4e -->
+    <section id="program" class="portfolio section">
+
+
+      <div class="container section-title" data-aos="fade-up" data-aos-delay="50">
+        <h2>Program</h2>
+        <p>CHECK OUR PROGRAM</p>
+
+
+        <div class="container">
+          <!--<h4>Join us on Nov X, on day X of the ITADATA conference</h4>-->
+          <h4>Tentative program (TBD)</h4>
+          <!--<table class="table table-striped table-hover align-middle w-auto mx-auto mt-5" data-aos="fade-up"
+            data-aos-delay="50" style="max-width: 700px;">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col" style="width: 150px; background-color: #ff4a17; color: #ffffff;">Time</th>
+                <th scope="col" style="background-color: #ff4a17; color: #ffffff;"></th>
+                <th scope="col" style="width: 300px; background-color: #ff4a17; color: #ffffff;">Activity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>09:00–09:10</strong></td>
+                <td class="fs-2">🌟</td>
+                <td>Welcome and Introduction</td>
+              </tr>
+              <tr>
+                <td><strong>09:10-09:50</strong></td>
+                <td class="fs-2">🎤</td>
+                <td><span class="fw-bold ">Keynote Talk:</span> TBD
+
+                </td>
+              </tr>
+              <tr>
+                <td><strong>09:50–11:00</strong></td>
+                <td class="fs-1">⚡</td>
+                <td><span class="fw-bold">Paper Session</span>
+                  (15’ presentation + 5’ Q&A). Moderator: Stefano Cirillo.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>11:00–11:30</strong></td>
+                <td class="fs-1">🍽️</td>
+                <td>Coffe Break</td>
+              </tr>
+              <tr>
+                <td><strong>11:30–12:30</strong></td>
+                <td class="fs-1">👥</td>
+                <td><span class="fw-bold">Panel</span>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>12:30</strong></td>
+                <td class="fs-1">✨</td>
+                <td>Closing Remarks</td>
+              </tr>
+            </tbody>
+          </table>-->
+
+
+
+          <!-- <p style="margin-top: 60px;">KEYNOTE SPEAKER<br></p> -->
+
+
+        </div>
+      </div>
+    </section><!-- /Program Section -->
+
+    <!-- Organization Section -->
+    <section id="organization" class="team section light-background pb-0">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Organization</h2>
+        <p class="mb-2 mt-2">ORGANIZERS</p>
+
+
+        <div class="container">
+
+          <div class="row gy-5 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3">
+
+            <div class="col" data-aos="fade-up" data-aos-delay="50">
+              <div class="member">
+                <div class="pic"><img src="./assetsicdm/img/team/team-jw.jpg" class="img-fluid" alt=""></div>
+                <div class="member-info">
+                  <h4>Weiwei Jiang</h4>
+                  <span class="maxw-lg-80 maxw-xxl-200 d-block mb-4">Beijing University of Posts and Telecommunications,
+                    China</span>
+                  <div class="social d-flex gap-1">
+                    <a href="https://scholar.google.com/citations?user=8OF_s60AAAAJ&hl=en" target="_blank"
+                      rel="noopener noreferrer"><i class="fa-brands fa-google-scholar"></i></a>
+                    <a href="https://jwwthu.github.io/" target="_blank" rel="noopener noreferrer"><i
+                        class="fa-solid fa-link"></i></a>
+                    <a href="mailto:jww@bupt.edu.cn"><i class="fa-solid fa-envelope"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Team Member -->
+
+            <div class="col" data-aos="fade-up" data-aos-delay="50">
+              <div class="member">
+                <div class="pic"><img src="./assetsicdm/img/team/team-aa.jpeg" class="img-fluid" alt=""></div>
+                <div class="member-info">
+                  <h4>Ahmad Taher Azar</h4>
+                  <span class="maxw-lg-80 maxw-xxl-200 d-block mb-4">Prince Sultan University, Saudi Arabia</span>
+                  <div class="social d-flex gap-1">
+                    <a href="mailto:aazar@psu.edu.sa"><i class="fa-solid fa-envelope"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Team Member -->
+
+            <div class="col" data-aos="fade-up" data-aos-delay="50">
+              <div class="member">
+                <div class="pic"><img src="./assetsicdm/img/team/team-md.jpg" class="img-fluid" alt=""></div>
+                <div class="member-info">
+                  <h4>Muhammet Deveci</h4>
+                  <span class="maxw-lg-80 maxw-xxl-200 d-block mb-4">University College London, UK</span>
+                  <div class="social d-flex gap-1">
+                    <a href="mailto:m.deveci@ucl.ac.uk"><i class="fa-solid fa-envelope"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Team Member -->
+
+            <div class="col" data-aos="fade-up" data-aos-delay="50">
+              <div class="member">
+                <div class="pic"><img src="./assetsicdm/img/team/team-sc.png" class="img-fluid" alt=""></div>
+                <div class="member-info">
+                  <h4>Stefano Cirillo</h4>
+                  <span class="maxw-lg-80 maxw-xxl-200 d-block mb-4">University of Salerno, Italy</span>
+                  <div class="social d-flex gap-1">
+                    <a href="https://scholar.google.it/citations?hl=it&user=hp98wacAAAAJ" target="_blank"
+                      rel="noopener noreferrer"><i class="fa-brands fa-google-scholar"></i></a>
+                    <a href="https://docenti.unisa.it/032633/en/home" target="_blank" rel="noopener noreferrer"><i
+                        class="fa-solid fa-link"></i></a>
+                    <a href="mailto:scirillo@unisa.it"><i class="fa-solid fa-envelope"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Team Member -->
+
+          </div>
+
+
+          <p style="margin-top: 60px;">PROGRAM COMMITTEE<br></p>
+
+
+          <div class="container mt-3">
+            <div class="content ps-0 ps-lg-5">
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Sai Huang</strong>, Beijing University of Posts and
+                Telecommunications, China
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Dingyou Ma</strong>, Beijing University of Posts and
+                Telecommunications, China
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Yixin He</strong>, Jiaxing University, China
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Serena Tardelli</strong>, IIT-CNR, Italy
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Andrea Mauri</strong>, Université Claude Bernard Lyon
+                1, France
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Giandomenico Solimando</strong>, University of Salerno,
+                Italy
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Gaetano Cimino</strong>, University of Salerno, Italy
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Eliana Pastor</strong>, Polytechnic University of
+                Turin, Italy
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Gianluca Bonifazi</strong>, Marche Polytechnic
+                University, Italy
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Maurizio Atzori</strong>, University of Cagliari, Italy
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Luca Zecchini</strong>, Technische Universität Berlin,
+                Germany
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Gerardo Vitagliano</strong>, MIT, USA
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Luca Virgili</strong>, Marche Polytechnic University,
+                Italy
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Weifeng Zhu</strong>, Guangdong Baiyun University,
+                China
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Wenping Song</strong>, National University of Defense
+                Technology, China
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Jianbin Mu</strong>, Zhejiang University of Technology,
+                China
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Miao He</strong>, Yanqi Lake Beijing Institute of
+                Mathematical Sciences and Applications, China
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Weixi Gu</strong>, China Academy of Industrial
+                Internet, China
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Shun Li</strong>, Ocean University of China, China
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Xuedong Li</strong>, Beihang University, China
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Shams ur Rehman</strong>, HITEC University Taxila,
+                Pakistan
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Ramanathan Lakshmanan</strong>, Vellore Institute of
+                Technology, India
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Muhammad Arslan Akram</strong>, Centre for Secure
+                Information Technologies (CSIT), United Kingdom
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Muhammad Awais Javeed</strong>, Southeast University,
+                China
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Mohammed Amin Almaiah</strong>, The University of
+                Jordan, Jordan
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Momina Shaheen</strong>, University of Roehampton,
+                United Kingdom
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Tanveer Ahmad</strong>, University of Cyprus, Cyprus
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Arshad Khan</strong>, Yoobee College of Creative
+                Innovation, New Zealand
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Yahya Fikri</strong>, Abdelmalek Essaadi University,
+                Morocco
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Logeshwaran Jaganathan</strong>, Christ University,
+                Bengaluru, India
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Mohammed Zakariah</strong>, King Saud University, Saudi
+                Arabia
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Danish Jamil</strong>, Sir Syed University of
+                Engineering and Technology, Pakistan
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Muhammad Asghar Khan</strong>, Prince Mohammad Bin Fahd
+                University, Saudi Arabia
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Rajesh Kumar Dhanaraj</strong>, Symbiosis International
+                (Deemed University), India
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Tai Fei</strong>, Dortmund University of Applied
+                Sciences and Arts, Germany
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>M. Shahid Anwar</strong>, King Fahd University of
+                Petroleum and Minerals, KSA
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Bhanuprakash Madupati</strong>, Department of
+                Corrections, USA
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Anurag Satpathy</strong>, Missouri University of
+                Science and Technology, USA
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Vinayakumar Ravi</strong>, Prince Mohammad Bin Fahd
+                University, Saudi Arabia
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Surjeet Dalal</strong>, Amity University Haryana, India
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Noha Hassan</strong>, Toronto Metropolitan University,
+                Canada
+              </h5>
+              <h5>
+                <i class="fa-solid fa-circle-check"></i> <strong>Muhammad Baqer Mollah</strong>, University of Houston,
+                Texas, USA
+              </h5>
+            </div>
+          </div>
+        </div><!-- End Section Title -->
+
+      </div>
+    </section> <!--/Organization Section -->
+
+
+
+
+  </main>
+
+  <footer id="footer" class="footer dark-background">
+
+
+    <div class="container copyright text-center">
+      <p>©<strong class="px-1 sitename">LLM4MDF 2026 - Workshop on </br> Large Language Models for Multimodal Data
+          Fusion</strong></p>
+      <div class="credits">
+        Designed by <a href="https://bootstrapmade.com/" target="_blank" rel="noopener noreferrer">BootstrapMade</a>
+        Distributed by <a href="https://themewagon.com" target="_blank" rel="noopener noreferrer">ThemeWagon</a>
+        <p>Photo credits: Shenzhen skyline © respective authors</p>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="./assetsicdm/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="./assetsicdm/vendor/aos/aos.js"></script>
+
+  <!-- Main JS File -->
+  <script src="./assetsicdm/js/main.js"></script>
 
 </body>
 
