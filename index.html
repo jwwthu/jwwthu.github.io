@@ -34,6 +34,20 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+<style>
+.collapse-title {
+  cursor: pointer;
+  padding:8px 0;
+  user-select:none;
+  margin:0;
+}
+.collapse-content {
+  overflow: hidden;
+  transition: height 0.4s ease;
+  height: 0;
+}
+</style>
 </head>
 
 <body>
@@ -110,7 +124,46 @@
         <div class="section-title">
           <h2>Publications</h2>
           <h3>Papers</h3>
-          <h4>Wireless Communication and Edge Computing</h4>
+          <h4>1. Wireless Communication and Edge Computing</h4>
+          <h4 class="collapse-title">p4</h4>
+          <div class="collapse-content">
+          <ul>
+            <li class="big">
+              <h6 class=""><strong>Vorticity Dissipation Based Routing: A Fluid-Kinetic Framework for Loop-Free Transport in Ultra-Dense Networks</strong></h6>
+              Dong W Y, <strong><u>Jiang W</u></strong>, Zhao S, et al.</br>
+              IEEE Transactions on Mobile Computing, 2026.</br>
+              [<a href="https://ieeexplore.ieee.org/document/11651587/" target="_blank">paper</a>]
+            </li>
+
+            <li class="big">
+              <h6 class=""><strong>Vorticity Dissipation Based Routing: A Fluid-Kinetic Framework for Loop-Free Transport in Ultra-Dense Networks</strong></h6>
+              Dong W Y, <strong><u>Jiang W</u></strong>, Zhao S, et al.</br>
+              IEEE Transactions on Mobile Computing, 2026.</br>
+              [<a href="https://ieeexplore.ieee.org/document/11651587/" target="_blank">paper</a>]
+            </li>
+          </ul>
+          </div>
+
+          <h4>2. Large Language Models and Computer Vision Applications</h4>
+          <h4 class="collapse-title">p4</h4>
+          <div class="collapse-content">
+          <ul>
+            <li class="big">
+              <h6 class=""><strong>Vorticity Dissipation Based Routing: A Fluid-Kinetic Framework for Loop-Free Transport in Ultra-Dense Networks</strong></h6>
+              Dong W Y, <strong><u>Jiang W</u></strong>, Zhao S, et al.</br>
+              IEEE Transactions on Mobile Computing, 2026.</br>
+              [<a href="https://ieeexplore.ieee.org/document/11651587/" target="_blank">paper</a>]
+            </li>
+
+            <li class="big">
+              <h6 class=""><strong>Vorticity Dissipation Based Routing: A Fluid-Kinetic Framework for Loop-Free Transport in Ultra-Dense Networks</strong></h6>
+              Dong W Y, <strong><u>Jiang W</u></strong>, Zhao S, et al.</br>
+              IEEE Transactions on Mobile Computing, 2026.</br>
+              [<a href="https://ieeexplore.ieee.org/document/11651587/" target="_blank">paper</a>]
+            </li>
+          </ul>
+          </div>
+          
           <ul>
             <li class="big">
               <h6 class=""><strong>Vorticity Dissipation Based Routing: A Fluid-Kinetic Framework for Loop-Free Transport in Ultra-Dense Networks</strong></h6>
@@ -1741,6 +1794,20 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+<script>
+const titles = document.querySelectorAll('.collapse-title');
+titles.forEach(title => {
+  title.addEventListener('click', () => {
+    const box = title.nextElementSibling;
+    if (box.style.height) {
+      box.style.height = '';
+    } else {
+      box.style.height = box.scrollHeight + 'px';
+    }
+  })
+})
+</script>
 
 </body>
 
